@@ -4,6 +4,7 @@
 #include <ctime>
 #include <cmath>
 #include <random>
+#include <omp.h>
 
 using namespace std;
 
@@ -21,6 +22,22 @@ void initializeMatrix(vector<vector<float>>& matrix, int n) {
             matrix[i][j] = round(num* 100.0) / 100.0;
         }
     }
+}
+
+vector<vector<float>> MatrixTranspose(const vector<vector<float>>& matrix) {
+    if (matrix.empty()) return {};
+
+    // Create a new matrix with swapped dimensions
+    vector<vector<float>> transposed(matrix[0].size(), vector<float>(matrix.size()));
+
+    // Use two nested loops to transpose the matrix
+    for (size_t i = 0; i < matrix.size(); ++i) {
+        for (size_t j = 0; j < matrix[0].size(); ++j) {
+            transposed[j][i] = matrix[i][j];
+        }
+    }
+
+    return transposed;
 }
 
 // Funzione per stampare la matrice con allineamento perfetto
@@ -49,16 +66,17 @@ bool checkSymmetry(const vector<vector<float>>& matrix, int n) {
     return true;  // Se tutte le verifiche passano, la matrice è simmetrica
 }
 
+
 int main(int argc, char* argv[]) {
     if (argc != 2) {
         std::cerr << "Usage: " << argv[0] << " <matrix size>" << std::endl;
-        return 1;
+        //return 1;
     }
-
-    int n = std::atoi(argv[1]);  // Dimensione della matrice passata come argomento
-
+    double wt1, wt2;
+    //int n = std::atoi(argv[1]);  // Dimensione della matrice passata come argomento
+    int n = 100;
     // Creiamo una matrice n x n
-    std::vector<std::vector<float>> matrix(n, std::vector<float>(n));
+    vector<vector<float>> matrix(n, vector<float>(n));
 
     // Inizializziamo la matrice con valori casuali
     initializeMatrix(matrix, n);
@@ -73,6 +91,9 @@ int main(int argc, char* argv[]) {
     } else {
         std::cout << "The matrix is not symmetric." << std::endl;
     }
-
+    wt1 = omp_get_wtime();
+    matrix = MatrixTranspose(matrix);
+    wt2 = omp_get_wtime();
+    cout << "wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << std::endl;
     return 0;
 }
