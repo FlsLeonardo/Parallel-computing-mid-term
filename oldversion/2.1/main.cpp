@@ -8,12 +8,12 @@
 #include "Functions.h"
 
 using namespace std;
-void matTransposeOmp(vector<vector<float>>& M,int n,vector<vector<float>>& T);
-void matTransposeSerial(vector<vector<float>>& M,int n,vector<vector<float>>& T);      //implementations of functions in main program
-void matTransposeImplicit(vector<vector<float>>& M,int n,vector<vector<float>>& T);
 
+vector<vector<float>> matTransposeSerial(const vector<vector<float>>& M);      //implementations of functions in main program
+vector<vector<float>> matTransposeImplicit(const vector<vector<float>>& M);
+vector<vector<float>> matTransposeOmp(const vector<vector<float>>& M);
 
-void (*matTranspose)(vector<vector<float>>& M,int n,vector<vector<float>>& T) = nullptr;   // Puntatore alla funzione
+vector<vector<float>> (*matTranspose)(const vector<vector<float>>& M) = nullptr;   // Puntatore alla funzione
 
 
 void initializeMatrix(vector<vector<float>>& matrix, int n) {     // Funzione per inizializzare una matrice n x n con numeri casuali a virgola mobile
@@ -65,33 +65,28 @@ int main(int argc, char* argv[]) {
     }
     double wt1, wt2;                                             //for wall clock time
     int n = std::atoi(argv[1]);                                  // Dimensione della matrice passata come argomento
-    n = pow(2, n);
-    vector<vector<float>> M(n, vector<float>(n));                // Creiamo una matrice n x n
-    vector<vector<float>> T(n, vector<float>(n));                //Matrice Trasposta
 
-    initializeMatrix(M, n);
-    //printMatrix(M,n);                                 // Inizializziamo la matrice con valori casuali
+    vector<vector<float>> M(n, vector<float>(n));                // Creiamo una matrice n x n
+
+    initializeMatrix(M, n);                                      // Inizializziamo la matrice con valori casuali
 
     matTranspose = matTransposeSerial; //Serial implementation
     wt1 = omp_get_wtime();
-    matTranspose(M,n,T);
+    vector<vector<float>> T = matTranspose(M);
     wt2 = omp_get_wtime();
     cout << "Serial wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << std::endl;
-    //printMatrix(T,n);
 
     matTranspose = matTransposeImplicit; //Implicit implementation
     wt1 = omp_get_wtime();
-    matTranspose(M,n,T);
+    T = matTranspose(M);
     wt2 = omp_get_wtime();
     cout << "Implicit wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << std::endl;
-    //printMatrix(T,n);
 
     matTranspose = matTransposeOmp; //Omp implementation
     wt1 = omp_get_wtime();
-    matTranspose(M,n,T);
+    T = matTranspose(M);
     wt2 = omp_get_wtime();
-    cout << "Omp wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << std::endl<<endl;
-    //printMatrix(T,n);
+    cout << "Omp wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << std::endl;
 
 
     return 0;

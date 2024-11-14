@@ -7,7 +7,7 @@ void myFunctionS();
 void myFunctionI();
 void myFunctionO();
 
-extern vector<vector<float>> (*matTranspose)(const vector<vector<float>>& M);
-extern vector<vector<float>> (*matSymmmetry)(const vector<vector<float>>& M);
+extern void (*matTranspose)(vector<vector<float>>& M,int n,vector<vector<float>>& T);
+extern vector<vector<float>> (*matSymmmetry)(const vector<vector<float>> M,int n);
 
 #endif
