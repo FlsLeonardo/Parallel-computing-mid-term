@@ -23,9 +23,9 @@ void (*matTranspose)(vector<vector<float>>& M,int n,vector<vector<float>>& T) = 
 bool (*checkSym)(const vector<vector<float>>& M,int n) = nullptr;
 
 
-void initializeMatrix(vector<vector<float>>& matrix, int n) {     // Funzione per inizializzare una matrice n x n con numeri casuali a virgola mobile                                                                  
+void initializeMatrix(vector<vector<float>>& matrix, int n) {     // Funzione per inizializzare una matrice n x n con numeri casuali a virgola mobile
     random_device rd;                                             // Inizializzazione del generatore di numeri casuali
-    mt19937 gen(rd());                                            
+    mt19937 gen(rd());
     uniform_real_distribution<> dis(0.0, 10.0);
     for (int i = 0; i < n; ++i) {                                  // Popolamento della matrice con valori casuali
         for (int j = 0; j < n; ++j) {
@@ -34,13 +34,13 @@ void initializeMatrix(vector<vector<float>>& matrix, int n) {     // Funzione pe
         }
     }
 }
-                                                                     // Funzione per stampare la matrice con allineamento perfetto
-void printMatrix(const vector<vector<float>>& matrix, int n) {                                        // Numero di decimali (può essere cambiato)
+// Funzione per stampare la matrice con allineamento perfetto
+void printMatrix(const vector<vector<float>>& matrix, int n) {                                        // Numero di decimali (puÃ² essere cambiato)
     for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {                                 // Stampa ogni numero con una larghezza fissa, precisione e spazio uniforme                           
+        for (int j = 0; j < n; ++j) {                                 // Stampa ogni numero con una larghezza fissa, precisione e spazio uniforme
             cout << matrix[i][j]<<"\t";
         }
-        cout << endl;  
+        cout << endl;
     }
 }
 
@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
         cerr << "Usage: " << argv[0] << " <matrix size>" << endl;
         return 1;
     }
-    double wt1, wt2;  
+    double wt1, wt2;
     double Stime,Itime,Otime;                                           //for wall clock time
     int n = atoi(argv[1]);                                  // Dimensione della matrice passata come argomento
     n = pow(2, n);
@@ -83,11 +83,11 @@ int main(int argc, char* argv[]) {
 
     initializeMatrix(M, n);                                      // Inizializziamo la matrice con valori casuali
     //printMatrix(M,n);
-    //printMatrix(T,n);                                 
+    //printMatrix(T,n);
 
     for (int i = 0; i < TEST; ++i) {
         //Serial implementation
-        matTranspose = matTransposeSerial; 
+        matTranspose = matTransposeSerial;
         //checkSym = checkSymSerial;
         //checkSym(M,n);
         wt1 = omp_get_wtime();
@@ -96,9 +96,9 @@ int main(int argc, char* argv[]) {
         //checkTransposition(M,n,T);
         Stime += (wt2 - wt1);
         writeToFile("../output/Serial.csv",n,(wt2 - wt1));
-        
+
         //Implicit implementation
-        matTranspose = matTransposeImplicit; 
+        matTranspose = matTransposeImplicit;
         //checkSym = checkSymImplicit;
         //checkSym(M,n);
         wt1 = omp_get_wtime();
@@ -107,9 +107,9 @@ int main(int argc, char* argv[]) {
         //checkTransposition(M,n,T);
         Itime += (wt2 - wt1);
         writeToFile("../output/Implicit.csv",n,(wt2 - wt1));
-        
+
         //Omp implementation
-        matTranspose = matTransposeOmp; 
+        matTranspose = matTransposeOmp;
         //checkSym = checkSymOmp;
         //checkSym(M,n);
         wt1 = omp_get_wtime();

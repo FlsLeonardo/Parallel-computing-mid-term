@@ -10,13 +10,14 @@ void myFunctionS() {
 void matTransposeSerial(vector<vector<float>>& M,int n,vector<vector<float>>& T){
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
-            T[j][i] = M[i][j];
+             T[j][i] = M[i][j];
         }
     }
 }
 
 bool checkSymSerial(const vector<vector<float>>& M,int n){
-    bool isSymmetric = true;
+    bool isSymmetric = true; 
+
     for (size_t i = 0; i < n; ++i) {
         for (size_t j = 0; j < n; ++j) {
             if (M[i][j] != M[j][i]) {
@@ -24,5 +25,6 @@ bool checkSymSerial(const vector<vector<float>>& M,int n){
             }
         }
     }
+
     return isSymmetric;
 }
