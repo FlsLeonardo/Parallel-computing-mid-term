@@ -14,15 +14,3 @@ void matTransposeSerial(vector<vector<float>>& M,int n,vector<vector<float>>& T)
         }
     }
 }
-
-bool checkSymSerial(const vector<vector<float>>& M,int n){
-    bool isSymmetric = true;
-    for (size_t i = 0; i < n; ++i) {
-        for (size_t j = 0; j < n; ++j) {
-            if (M[i][j] != M[j][i]) {
-                isSymmetric = false;
-            }
-        }
-    }
-    return isSymmetric;
-}

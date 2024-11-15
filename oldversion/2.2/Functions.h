@@ -8,6 +8,6 @@ void myFunctionI();
 void myFunctionO();
 
 extern void (*matTranspose)(vector<vector<float>>& M,int n,vector<vector<float>>& T);
-extern bool (*checkSym)(const vector<vector<float>>& M,int n);
+extern vector<vector<float>> (*matSymmmetry)(const vector<vector<float>> M,int n);
 
 #endif

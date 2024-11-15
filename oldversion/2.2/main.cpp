@@ -8,22 +8,19 @@
 #include "Functions.h"
 
 using namespace std;
-
+void matTransposeOmp(vector<vector<float>>& M,int n,vector<vector<float>>& T);
 void matTransposeSerial(vector<vector<float>>& M,int n,vector<vector<float>>& T);      //implementations of functions in main program
 void matTransposeImplicit(vector<vector<float>>& M,int n,vector<vector<float>>& T);
-void matTransposeOmp(vector<vector<float>>& M,int n,vector<vector<float>>& T);
 
-bool checkSymSerial(const vector<vector<float>>& M,int n);
-bool checkSymImplicit(const vector<vector<float>>& M,int n);
-bool checkSymOmp(const vector<vector<float>>& M,int n);
 
 void (*matTranspose)(vector<vector<float>>& M,int n,vector<vector<float>>& T) = nullptr;   // Puntatore alla funzione
-bool (*checkSym)(const vector<vector<float>>& M,int n) = nullptr;
 
 
 void initializeMatrix(vector<vector<float>>& matrix, int n) {     // Funzione per inizializzare una matrice n x n con numeri casuali a virgola mobile
-    random_device rd;                                             // Inizializzazione del generatore di numeri casuali
-    mt19937 gen(rd());
+
+    // Inizializzazione del generatore di numeri casuali
+    random_device rd;
+    mt19937 gen(rd());                                            // Mersenne Twister engine
     uniform_real_distribution<> dis(0.0, 10.0);
 
 
@@ -48,17 +45,18 @@ void printMatrix(const vector<vector<float>>& matrix, int n) {
     }
 }
 
-bool checkTransposition(const vector<vector<float>>& M,int n,const vector<vector<float>>& T) {
-    for (size_t i = 0; i < n; ++i) {
-        for (size_t j = 0; j < n; ++j) {
-            if (M[j][i] != T[i][j]) {
-                return false;
+// Funzione per controllare se la matrice è simmetrica
+bool checkSymmetry(const vector<vector<float>>& matrix, int n) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {                           // Controlliamo solo la parte superiore della matrice (i < j)
+            if (matrix[i][j] != matrix[j][i]) {
+                return false;                                       // Se c'è una disuguaglianza, la matrice non è simmetrica
             }
         }
     }
-
-    return true;
+    return true;                                                    // Se tutte le verifiche passano, la matrice è simmetrica
 }
+
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
@@ -71,45 +69,28 @@ int main(int argc, char* argv[]) {
     vector<vector<float>> M(n, vector<float>(n));                // Creiamo una matrice n x n
     vector<vector<float>> T(n, vector<float>(n));                //Matrice Trasposta
 
-    initializeMatrix(M, n);                                      // Inizializziamo la matrice con valori casuali
-    //printMatrix(M,n);
+    initializeMatrix(M, n);
+    //printMatrix(M,n);                                 // Inizializziamo la matrice con valori casuali
 
-    //Serial implementation
-    matTranspose = matTransposeSerial;
-    checkSym = checkSymSerial;
-    cout << "Serial ceck symmetry" <<checkSym(M,n)<< endl;
+    matTranspose = matTransposeSerial; //Serial implementation
     wt1 = omp_get_wtime();
-    //checkSym(M,n);
     matTranspose(M,n,T);
     wt2 = omp_get_wtime();
-    cout << "Check Transposition " <<checkTransposition(M,n,T)<< endl;
-    cout << "Serial wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << endl<<endl;
-
-
+    cout << "Serial wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << std::endl;
     //printMatrix(T,n);
 
-    //Implicit implementation
-    matTranspose = matTransposeImplicit;
-    checkSym = checkSymImplicit;
-    cout << "Implicit ceck symmetry" <<checkSym(M,n)<< endl;
+    matTranspose = matTransposeImplicit; //Implicit implementation
     wt1 = omp_get_wtime();
-    //checkSym(M,n);
     matTranspose(M,n,T);
     wt2 = omp_get_wtime();
-    cout << "Check Transposition " <<checkTransposition(M,n,T)<< endl;
-    cout << "Implicit wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << endl<<endl;
+    cout << "Implicit wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << std::endl;
     //printMatrix(T,n);
 
-    //Omp implementation
-    matTranspose = matTransposeOmp;
-    checkSym = checkSymOmp;
-    cout << "Omp ceck symmetry" <<checkSym(M,n)<< endl;
+    matTranspose = matTransposeOmp; //Omp implementation
     wt1 = omp_get_wtime();
-    //checkSym(M,n);
     matTranspose(M,n,T);
     wt2 = omp_get_wtime();
-    cout << "Check Transposition " <<checkTransposition(M,n,T)<< endl;
-    cout << "Omp wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << endl<<endl;
+    cout << "Omp wall clock time (omp_get_wtime) = " << (wt2 - wt1) << " sec" << std::endl<<endl;
     //printMatrix(T,n);
 
 
