@@ -46,3 +46,4 @@ plt.grid(True)
 plt.legend()
 
 plt.savefig("../output/transpose_time_vs_matrix_size_Implicit.pdf", format='pdf')
+plt.show();

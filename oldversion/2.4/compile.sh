@@ -9,7 +9,7 @@ fi
 module load gcc91
 g++-9.1.0 -c main.cpp -fopenmp
 g++-9.1.0 -c serialTransposition.cpp
-g++-9.1.0 -c implicitTransposition.cpp -O1
+g++-9.1.0 -c implicitTransposition.cpp -O3
 g++-9.1.0 -c ompTransposition.cpp -fopenmp
 
 # Link dei file oggetto
