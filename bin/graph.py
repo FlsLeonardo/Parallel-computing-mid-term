@@ -207,6 +207,8 @@ def efficency_speedup(filename,dim_matrix):
 
     # Mostriamo il grafico
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    file_name = f"../output/efficency_speedup_matrix_size_{dim_matrix}.pdf"
+    plt.savefig(file_name, format='pdf')
 if __name__ == "__main__":
     main()
