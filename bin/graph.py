@@ -171,16 +171,16 @@ def efficency_speedup(filename,dim_matrix):
     for nthread, tempo in zip(matrix_thread_used, matrix_times):
         speed = tempo_seriale / tempo
         speedup.append(speed)
-        efficency.append(speed/nthread)
-    print(matrix_thread_used)
-    print(matrix_times)
+        efficency.append(speed/nthread*100)
+    #print(matrix_thread_used)
+    #print(matrix_times)
     #print(speedup)
     #print(efficency)
     plt.figure(figsize=(10, 6))
 
     # Grafico per il tempo
     plt.subplot(3, 1, 1)  # 3 righe, 1 colonna, grafico 1
-    plt.plot(matrix_thread_used, tempi, marker='o', color='b', label='Tempo (s)', linestyle='-', linewidth=2)
+    plt.plot(matrix_thread_used, matrix_times, marker='o', color='b', label='Tempo (s)', linestyle='-', linewidth=2)
     plt.xlabel('Numero di Thread')
     plt.ylabel('Tempo (s)')
     plt.title('Tempo in funzione dei Thread')
