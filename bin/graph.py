@@ -11,6 +11,7 @@ def main():
         if "--help" in arg:
             print("\nHai richiesto l'aiuto.")
             print("-type=(serial, implicit, omp)")
+            print("-ES=(number)")
             sys.exit(0)
         if "-type" in arg:
             choice = sys.argv[1].split("=")[1]
@@ -23,6 +24,9 @@ def main():
                 implicit("../output/Implicit.csv")
             elif choice == "omp":
                 omp("../output/Omp.csv")
+        if "-ES" in arg: #efficency and Speedup
+            matrix_dim = sys.argv[1].split("=")[1]
+            efficency_speedup("../output/Omp.csv",matrix_dim)
 
 def serial(filename):
     dimensioni = []
@@ -142,7 +146,67 @@ def omp(filename):
     plt.legend()
     #plt.show()
     plt.savefig("../output/transpose_time_vs_matrix_size_Omp.pdf", format='pdf')
-                
-            
+  
+def efficency_speedup(filename,dim_matrix):
+    matrix_times = []
+    matrix_thread_used = []
+    speedup = []
+    efficency = []
+    tempo_seriale = 0
+    with open(filename, mode='r', encoding='utf-8') as file:
+        for riga in file:
+            dimension,time,n_thread = riga.strip().split(";")
+            if dimension == dim_matrix:
+                matrix_times.append(float(time))
+                matrix_thread_used.append(int(n_thread))
+    counter = 0;
+    for i in matrix_thread_used:
+        if i == 1:
+            tempo_seriale = matrix_times[counter]
+        counter = counter + 1
+    
+    dati = sorted(zip(matrix_thread_used, matrix_times))
+    thread_n, tempi = zip(*dati)
+        
+    for nthread, tempo in zip(matrix_thread_used, matrix_times):
+        speed = tempo_seriale / tempo
+        speedup.append(speed)
+        efficency.append(speed/nthread)
+    print(matrix_thread_used)
+    print(matrix_times)
+    #print(speedup)
+    #print(efficency)
+    plt.figure(figsize=(10, 6))
+
+    # Grafico per il tempo
+    plt.subplot(3, 1, 1)  # 3 righe, 1 colonna, grafico 1
+    plt.plot(matrix_thread_used, tempi, marker='o', color='b', label='Tempo (s)', linestyle='-', linewidth=2)
+    plt.xlabel('Numero di Thread')
+    plt.ylabel('Tempo (s)')
+    plt.title('Tempo in funzione dei Thread')
+    plt.grid(True)
+    plt.legend()
+
+    # Grafico per lo speedup
+    plt.subplot(3, 1, 2)  # 3 righe, 1 colonna, grafico 2
+    plt.plot(matrix_thread_used, speedup, marker='o', color='g', label='Speedup', linestyle='-', linewidth=2)
+    plt.xlabel('Numero di Thread')
+    plt.ylabel('Speedup')
+    plt.title('Speedup in funzione dei Thread')
+    plt.grid(True)
+    plt.legend()
+
+    # Grafico per l'efficienza
+    plt.subplot(3, 1, 3)  # 3 righe, 1 colonna, grafico 3
+    plt.plot(matrix_thread_used, efficency, marker='o', color='r', label='Efficienza', linestyle='-', linewidth=2)
+    plt.xlabel('Numero di Thread')
+    plt.ylabel('Efficienza')
+    plt.title('Efficienza in funzione dei Thread')
+    plt.grid(True)
+    plt.legend()
+
+    # Mostriamo il grafico
+    plt.tight_layout()
+    plt.show()
 if __name__ == "__main__":
     main()
