@@ -10,17 +10,17 @@
 #define TEST 5
 
 using namespace std;
-void writeToFile(const string& filename,const int dim_matrix, const double text, string num_threads_or_type_of_compile_opt = "0");
+void writeToFile(const string& filename,const int dim_matrix, const double text, string num_threads_or_type_of_compile_opt = "");
 
-void matTransposeSerial(vector<vector<float>>& M,int n,vector<vector<float>>& T,int n_thread);      //implementations of functions in main program
-void matTransposeImplicit(vector<vector<float>>& M,int n,vector<vector<float>>& T,int n_thread);
-void matTransposeOmp(vector<vector<float>>& M,int n,vector<vector<float>>& T, int n_thread);
+void matTransposeSerial(vector<vector<float>>& M,int n,vector<vector<float>>& T);      //implementations of functions in main program
+void matTransposeImplicit(vector<vector<float>>& M,int n,vector<vector<float>>& T);
+void matTransposeOmp(vector<vector<float>>& M,int n,vector<vector<float>>& T);
 
 bool checkSymSerial(const vector<vector<float>>& M,int n);
 bool checkSymImplicit(const vector<vector<float>>& M,int n);
 bool checkSymOmp(const vector<vector<float>>& M,int n);
 
-void (*matTranspose)(vector<vector<float>>& M,int n,vector<vector<float>>& T, int n_thread) = nullptr;   // Puntatore alla funzione
+void (*matTranspose)(vector<vector<float>>& M,int n,vector<vector<float>>& T) = nullptr;   // Puntatore alla funzione
 bool (*checkSym)(const vector<vector<float>>& M,int n) = nullptr;
 
 
@@ -62,7 +62,7 @@ void writeToFile(const string& filename,const int dim_matrix, const double text,
         cerr << "Error: Could not open file " << filename << endl;
         return;
     }
-    if(num_threads_or_type_of_compile_opt != "0"){
+    if(num_threads_or_type_of_compile_opt != ""){
         file <<dim_matrix <<";"<< text <<";"<< num_threads_or_type_of_compile_opt <<"\n";
     }else{
         file <<dim_matrix <<";"<< text <<"\n";
@@ -83,56 +83,53 @@ int main(int argc, char* argv[]) {
     double Stime,Itime,Otime;                                           //for wall clock time
     int num = atoi(argv[1]);                                  // Dimensione della matrice passata come argomento
     int n = pow(2, num);
-    int n_threads[8] = {1, 2, 4, 8, 16, 32, 64, 96};
     vector<vector<float>> M(n, vector<float>(n));                // Creiamo una matrice n x n
     vector<vector<float>> T(n, vector<float>(n));                //Matrice Trasposta
 
     initializeMatrix(M, n);                                      // Inizializziamo la matrice con valori casuali
     //printMatrix(M,n);
-    //printMatrix(T,n); 
+    //printMatrix(T,n);                                 
+
     for (int i = 0; i < TEST; ++i) {
-            //Serial implementation---------------------------------------------
-            matTranspose = matTransposeSerial; 
-            //checkSym = checkSymSerial;
-            //checkSym(M,n);
-            wt1 = omp_get_wtime();
-            matTranspose(M,n,T,1);
-            wt2 = omp_get_wtime();
-            if(!checkTransposition(M,n,T)){cout<<"transpose not correct"<<endl;}
-            Stime += (wt2 - wt1);
-            
-            
-            //Implicit implementation-------------------------------------------
-            matTranspose = matTransposeImplicit; 
-            //checkSym = checkSymImplicit;
-            //checkSym(M,n);
-            wt1 = omp_get_wtime();
-            matTranspose(M,n,T,1);
-            wt2 = omp_get_wtime();
-            if(!checkTransposition(M,n,T)){cout<<"transpose not correct"<<endl;}
-            Itime += (wt2 - wt1);
-    }        
-    cout <<"----------------------------------"<<endl; 
-    cout << "Serial (avarege of 5) " << (Stime/TEST)<< " sec" << endl<<endl;
-    cout << "Implicit (avarege of 5) " << (Itime/TEST)<< " sec" << endl<<endl;  
-    writeToFile("../output/Serial.csv",num,(Stime/TEST));     //--------------------------------------------write file Serial
-    writeToFile("../output/Implicit.csv",num,(Itime/TEST),"O3"); //-----------------------------------------write file implicit
-                             
-    for (int& thread_count : n_threads) {
-        for (int i = 0; i < TEST; ++i) {
-            //Omp implementation-------------------------------------------------
-            matTranspose = matTransposeOmp; 
-            //checkSym = checkSymOmp;
-            //checkSym(M,n);
-            wt1 = omp_get_wtime();
-            matTranspose(M,n,T,thread_count);
-            wt2 = omp_get_wtime();
-            if(!checkTransposition(M,n,T)){cout<<"transpose not correct"<<endl;}
-            Otime += (wt2 - wt1);
-        }
-        cout << "Omp (avarege of 5) " << (Otime/TEST)<< " sec " <<thread_count<<" threads"<< endl;
-        writeToFile("../output/Omp.csv",num,(Otime/TEST),to_string(thread_count)); //---------------------------write file OMP
-        Otime = 0;
-    }    
+        //Serial implementation---------------------------------------------
+        matTranspose = matTransposeSerial; 
+        //checkSym = checkSymSerial;
+        //checkSym(M,n);
+        wt1 = omp_get_wtime();
+        matTranspose(M,n,T);
+        wt2 = omp_get_wtime();
+        //checkTransposition(M,n,T);
+        Stime += (wt2 - wt1);
+        
+        
+        //Implicit implementation-------------------------------------------
+        matTranspose = matTransposeImplicit; 
+        //checkSym = checkSymImplicit;
+        //checkSym(M,n);
+        wt1 = omp_get_wtime();
+        matTranspose(M,n,T);
+        wt2 = omp_get_wtime();
+        //checkTransposition(M,n,T);
+        Itime += (wt2 - wt1);
+        
+        
+        //Omp implementation-------------------------------------------------
+        matTranspose = matTransposeOmp; 
+        //checkSym = checkSymOmp;
+        //checkSym(M,n);
+        wt1 = omp_get_wtime();
+        matTranspose(M,n,T);
+        wt2 = omp_get_wtime();
+        //checkTransposition(M,n,T);
+        Otime += (wt2 - wt1);
+        
+    }
+    cout << "Serial wall clock time (omp_get_wtime) avarege of 5 = " << (Stime/TEST)<< " sec" << endl<<endl;
+    cout << "Implicit wall clock time (omp_get_wtime) avarege of 5 = " << (Itime/TEST)<< " sec" << endl<<endl;
+    cout << "Omp wall clock time (omp_get_wtime) avarege of 5 = " << (Otime/TEST)<< " sec" << endl<<endl;
+    
+    //writeToFile("../output/Serial.csv",num,(Stime/TEST));
+    //writeToFile("../output/Implicit.csv",num,(Itime/TEST),"O1");
+    writeToFile("../output/Omp.csv",num,(Otime/TEST),"2");
     return 0;
 }

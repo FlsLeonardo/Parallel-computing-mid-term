@@ -3,19 +3,18 @@
 #include <vector>
 using namespace std;
 
-void myFunctionS() {
-    std::cout << "SERIAL Transposition" << std::endl;
+void myFunctionI() {
+    std::cout << "IMPLICIT! Transposition" << std::endl;
 }
 
-void matTransposeSerial(vector<vector<float>>& M,int n,vector<vector<float>>& T,int n_thread){
+void matTransposeImplicit(vector<vector<float>>& M,int n,vector<vector<float>>& T){
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
              T[j][i] = M[i][j];
         }
     }
 }
-
-bool checkSymSerial(const vector<vector<float>>& M,int n){
+bool checkSymImplicit(const vector<vector<float>>& M,int n){
     bool isSymmetric = true; 
 
     for (size_t i = 0; i < n; ++i) {

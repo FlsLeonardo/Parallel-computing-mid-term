@@ -7,7 +7,7 @@ void myFunctionI() {
     std::cout << "IMPLICIT! Transposition" << std::endl;
 }
 
-void matTransposeImplicit(vector<vector<float>>& M,int n,vector<vector<float>>& T){
+void matTransposeImplicit(vector<vector<float>>& M,int n,vector<vector<float>>& T,int n_thread){
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < n; ++j) {
              T[j][i] = M[i][j];
