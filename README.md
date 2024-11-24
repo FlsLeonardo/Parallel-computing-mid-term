@@ -136,3 +136,61 @@ Or for more Compilation flag
 Parallel-computing-mid-term/"Method_chosen"/bin>  ./Compile.sh "O2 -funroll-loops" 10
 ```
 - Is it possible also to execute `python graph.py` that does all the graphs thanks to the `files.csv` in the output folder
+
+### Structure of the project
+- **Parallel-computing-mid-term**
+  - **method1**
+    - **bin**
+      - main.cpp
+      - serialTransposition.cpp
+      - implicitTransposition.cpp
+      - ompTransposition.cpp
+      - Functions.h
+      - compile.sh
+    - **output**
+      - Serial.csv
+      - Implicit.csv
+      - Omp.csv
+  - **method2**
+    - **bin**
+      - main.cpp
+      - serialTransposition.cpp
+      - implicitTransposition.cpp
+      - ompTransposition.cpp
+      - Functions.h
+      - compile.sh
+    - **output**
+      - Serial.csv
+      - Implicit.csv
+      - Omp.csv
+  - **method3**
+    - **bin**
+      - main.cpp
+      - serialTransposition.cpp
+      - implicitTransposition.cpp
+      - ompTransposition.cpp
+      - Functions.h
+      - compile.sh
+    - **output**
+      - Serial.csv
+      - Implicit.csv
+      - Omp.csv
+  - best_Implicit_for_matrix_dimension.py
+  - best.csv
+
+For every method there is a brief explanation of the files:
+
+| Directory          | File                  | Descrizione                          |
+|---------------------|-----------------------|--------------------------------------|
+| `bin/`             | `main.cpp`           | Programma principale                |
+|                     | `serialTransposition.cpp` | Trasposizione seriale          |
+|                     | `implicitTransposition.cpp` | Trasposizione implicita        |
+|                     | `ompTransposition.cpp` | Trasposizione con OpenMP         |
+|                     | `Functions.h`        | Header con funzioni condivise       |
+|                     | `Main`               | Eseguibile compilato                |
+|                     | `compile.sh`         | Script per la compilazione  
+|                     | `graph.py`         | Scritp for doing graphs        |
+| `output/`          | `Serial.csv`         | Dati trasposizione seriale          |
+|                     | `Implicit.csv`       | Dati trasposizione implicita        |
+|                     | `Omp.csv`            | Dati trasposizione con OpenMP       |
+  
