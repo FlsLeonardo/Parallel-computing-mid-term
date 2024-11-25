@@ -66,22 +66,29 @@ def implicit(filename):
             compileropt.append(str(valori[2]))
     dati = sorted(zip(compileropt, dimensioni, tempi))
     compile_option, dimensioni, tempi = zip(*dati)
-    dim = [[],[],[]]                         #dimensione divisa in base ai compilatori 
-    time = [[],[],[]]                        #tempo diviso in base ai compilatori 
+    dim = [[],[],[],[],[]]                         #dimensione divisa in base ai compilatori 
+    time = [[],[],[],[],[]]                        #tempo diviso in base ai compilatori 
     for opt, dim_, tempo in zip(compile_option, dimensioni, tempi):
-        if opt == "O1":
+        if opt.split("=")[0] == "O1":
             time[0].append(tempo)
             dim[0].append(dim_)
-        elif opt == "O2":
+        elif opt.split("=")[0] == "O2":
             time[1].append(tempo)
             dim[1].append(dim_)
-        elif opt == "O3":
+        elif opt.split("=")[0] == "O3":
             time[2].append(tempo)
             dim[2].append(dim_)
-            
+        elif opt.split("=")[0] == "O2 -funroll-loops":
+            time[3].append(tempo)
+            dim[3].append(dim_)
+        elif opt.split("=")[0] == "O1 -funroll-loops":
+            time[4].append(tempo)
+            dim[4].append(dim_) 
     plt.plot(dim[0], time[0], marker='o', linestyle='--', color='r', label='O1')
     plt.plot(dim[1], time[1], marker='o', linestyle='--', color='b', label='O2')
     plt.plot(dim[2], time[2], marker='o', linestyle='--', color='c', label='O3')
+    plt.plot(dim[3], time[3], marker='o', linestyle='--', color='g', label='O2 -funroll-loops')
+    plt.plot(dim[4], time[4], marker='o', linestyle='--', color='y', label='O1 -funroll-loops')
     plt.xlabel('Dimensione della matrice (n)')
     plt.ylabel('Tempo di trasposizione (secondi)')
     plt.title('Tempo di Trasposizione Implicito in funzione della Dimensione della Matrice')
@@ -271,3 +278,4 @@ def efficiency(filename, colors=None):
     plt.clf()
 if __name__ == "__main__":
     main()
+

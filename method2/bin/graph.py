@@ -8,12 +8,12 @@ def main():
     if len(sys.argv) < 2:
         print("Nessun parametro fornito.")
         serial("../output/Serial.csv")
-        implicit("../output/Implicit.csv")
         omp("../output/Omp.csv")
         for num in range(4, 13):
             efficency_speedup("../output/Omp.csv",num)
         speedup("../output/Omp.csv")
         efficiency("../output/Omp.csv")
+        implicit("../output/Implicit.csv")
         sys.exit(1)
     for arg in sys.argv:
         if "--help" in arg:
@@ -73,6 +73,7 @@ def serial(filename):
         plt.plot(block_matrix_size, block_transpose_time, label=f'Block Size {block}', marker='o')
 
     # Aggiungi etichette e titolo
+    plt.yscale("log")
     plt.xlabel('Matrix Size')
     plt.ylabel('Transpose Time (seconds)')
     plt.title('Matrix Transpose Time vs Matrix Size for Different Block Sizes')
@@ -101,6 +102,7 @@ def implicit(filename):
     
     # Per ogni combinazione di tipo di ottimizzazione e valore, disegna una curva
     for ottimizzazione in data['Tipo_Ottimizzazione'].unique():
+        print(ottimizzazione)
         for valore in data['Valore_Ottimizzazione'].unique():
             # Filtro dei dati per una specifica combinazione di ottimizzazione e valore
             df_filtered = data[(data['Tipo_Ottimizzazione'] == ottimizzazione) & (data['Valore_Ottimizzazione'] == valore)]
@@ -115,7 +117,7 @@ def implicit(filename):
     plt.grid(True)
     
     # Posizionare la legenda fuori dal grafico
-    plt.legend(title="Tipo di Ottimizzazione e Valore", bbox_to_anchor=(1.05, 0.5), loc='center left')
+    #plt.legend(title="Tipo di Ottimizzazione e Valore", bbox_to_anchor=(1.05, 0.5), loc='center left')
     
     # Mostra il grafico con la legenda esterna
     plt.tight_layout()  # Aggiungi un po' di spazio per non sovrapporre il grafico con la legenda

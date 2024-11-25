@@ -12,15 +12,15 @@
 using namespace std;
 void writeToFile(const string& filename,const int dim_matrix, const double text, string num_threads_or_type_of_compile_opt = "0");
 
-void matTransposeSerial(vector<vector<float>>& M,int n,vector<vector<float>>& T,int n_thread);      //implementations of functions in main program
-void matTransposeImplicit(vector<vector<float>>& M,int n,vector<vector<float>>& T,int n_thread);
-void matTransposeOmp(vector<vector<float>>& M,int n,vector<vector<float>>& T, int n_thread);
+void matTransposeSerial(vector<vector<float>>& T,int n,int n_thread);      //implementations of functions in main program
+void matTransposeImplicit(vector<vector<float>>& T,int n,int n_thread);
+void matTransposeOmp(vector<vector<float>>& T,int n, int n_thread);
 
 bool checkSymSerial(const vector<vector<float>>& M,int n);
 bool checkSymImplicit(const vector<vector<float>>& M,int n);
 bool checkSymOmp(const vector<vector<float>>& M,int n);
 
-void (*matTranspose)(vector<vector<float>>& M,int n,vector<vector<float>>& T, int n_thread) = nullptr;   // Puntatore alla funzione
+void (*matTranspose)(vector<vector<float>>& T,int n, int n_thread) = nullptr;   // Puntatore alla funzione
 bool (*checkSym)(const vector<vector<float>>& M,int n) = nullptr;
 
 
@@ -87,28 +87,29 @@ int main(int argc, char* argv[]) {
     int n_threads[8] = {1, 2, 4, 8, 16, 32, 64, 96};
     vector<vector<float>> M(n, vector<float>(n));                // Creiamo una matrice n x n
     vector<vector<float>> T(n, vector<float>(n));                //Matrice Trasposta
-
-    initializeMatrix(M, n);                                      // Inizializziamo la matrice con valori casuali
+    initializeMatrix(M, n);                                                       // Inizializziamo la matrice con valori casuali e la sua trasposta
     //printMatrix(M,n);
-    //printMatrix(T,n); 
+    //printMatrix(T,n);
+     
     for (int i = 0; i < TEST; ++i) {
+            T = M; 
             //Serial implementation---------------------------------------------
             matTranspose = matTransposeSerial; 
             //checkSym = checkSymSerial;
             //checkSym(M,n);
             wt1 = omp_get_wtime();
-            matTranspose(M,n,T,1);
+            matTranspose(T,n,1);
             wt2 = omp_get_wtime();
             if(!checkTransposition(M,n,T)){cout<<"transpose not correct"<<endl;}
             Stime += (wt2 - wt1);
             
-            
+            T = M;
             //Implicit implementation-------------------------------------------
             matTranspose = matTransposeImplicit; 
             //checkSym = checkSymImplicit;
             //checkSym(M,n);
             wt1 = omp_get_wtime();
-            matTranspose(M,n,T,1);
+            matTranspose(T,n,1);
             wt2 = omp_get_wtime();
             if(!checkTransposition(M,n,T)){cout<<"transpose not correct"<<endl;}
             Itime += (wt2 - wt1);
@@ -118,15 +119,16 @@ int main(int argc, char* argv[]) {
     cout << "Implicit (avarege of 5) " << (Itime/TEST)<< " sec" << endl<<endl;  
     writeToFile("../output/Serial.csv",num,(Stime/TEST));     //--------------------------------------------write file Serial
     writeToFile("../output/Implicit.csv",num,(Itime/TEST),compileOpt+"=method3"); //-----------------------------------------write file implicit
-                             
+    //printMatrix(T,n);                         
     for (int& thread_count : n_threads) {
         for (int i = 0; i < TEST; ++i) {
+            T = M;
             //Omp implementation-------------------------------------------------
             matTranspose = matTransposeOmp; 
             //checkSym = checkSymOmp;
             //checkSym(M,n);
             wt1 = omp_get_wtime();
-            matTranspose(M,n,T,thread_count);
+            matTranspose(T,n,thread_count);
             wt2 = omp_get_wtime();
             if(!checkTransposition(M,n,T)){cout<<"transpose not correct"<<endl;}
             Otime += (wt2 - wt1);

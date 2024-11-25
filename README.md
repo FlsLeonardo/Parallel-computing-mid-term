@@ -1,5 +1,5 @@
 # Parallel-computing-mid-term
-![Version](https://img.shields.io/badge/CrntVersion-02.07-dc00ff)
+![Version](https://img.shields.io/badge/CrntVersion-02.08-dc00ff)
 ![Author](https://img.shields.io/badge/Author-Falsarolo_Leonardo-6800ff)
 ![Languages](https://img.shields.io/badge/Languages-C++-0070ff)
 ![Languages](https://img.shields.io/badge/Languages-Python-00ffd4)

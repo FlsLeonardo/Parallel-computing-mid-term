@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
             //checkSym = checkSymSerial;
             //checkSym(M,n);
             wt1 = omp_get_wtime();
-            matTranspose(M,n,T,1);
+            matTranspose(M,n,T,block);
             wt2 = omp_get_wtime();
             if(!checkTransposition(M,n,T)){cout<<"transpose not correct"<<endl;}
             Stime += (wt2 - wt1);
