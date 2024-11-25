@@ -55,38 +55,36 @@ def serial(filename):
         plt.clf()
     
 def implicit(filename):
-    dimensioni = []
-    tempi = []
-    compileropt = []
-    with open(filename, mode='r', encoding='utf-8') as file:
-        for riga in file:
-            valori = riga.strip().split(";")
-            dimensioni.append(int(valori[0]))
-            tempi.append(float(valori[1]))
-            compileropt.append(str(valori[2]))
-    dati = sorted(zip(compileropt, dimensioni, tempi))
-    compile_option, dimensioni, tempi = zip(*dati)
-    dim = [[],[],[]]                         #dimensione divisa in base ai compilatori 
-    time = [[],[],[]]                        #tempo diviso in base ai compilatori 
-    for opt, dim_, tempo in zip(compile_option, dimensioni, tempi):
-        if opt == "O1":
-            time[0].append(tempo)
-            dim[0].append(dim_)
-        elif opt == "O2":
-            time[1].append(tempo)
-            dim[1].append(dim_)
-        elif opt == "O3":
-            time[2].append(tempo)
-            dim[2].append(dim_)
-            
-    plt.plot(dim[0], time[0], marker='o', linestyle='--', color='r', label='O1')
-    plt.plot(dim[1], time[1], marker='o', linestyle='--', color='b', label='O2')
-    plt.plot(dim[2], time[2], marker='o', linestyle='--', color='c', label='O3')
-    plt.xlabel('Dimensione della matrice (n)')
-    plt.ylabel('Tempo di trasposizione (secondi)')
-    plt.title('Tempo di Trasposizione Implicito in funzione della Dimensione della Matrice')
-    plt.grid(True)
+    # Dizionario per contenere i dati raggruppati per opzioni di compilazione
+    data = {}
+    
+    # Lettura del file
+    with open(filename, 'r') as file:
+        for line in file:
+            parts = line.strip().split(';')
+            if len(parts) == 3:  # Controllo formato
+                x_value = int(parts[0])  # Primo valore (es. 4, 5, ...)
+                y_value = float(parts[1])  # Secondo valore (es. 2.87592e-07, ...)
+                option = parts[2]  # Terzo valore (es. O1, O2, ...)
+                
+                # Organizzazione dei dati
+                if option not in data:
+                    data[option] = {'x': [], 'y': []}
+                data[option]['x'].append(x_value)
+                data[option]['y'].append(y_value)
+    
+    # Creazione del grafico
+    plt.figure(figsize=(10, 6))
+    for option, values in data.items():
+        plt.plot(values['x'], values['y'], marker='o', label=option)
+    
+    # Personalizzazione del grafico
+    plt.xlabel('Input Size')
+    plt.ylabel('Execution Time')
+    plt.title('Performance by Compiler Options')
     plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
     #plt.show()
     plt.savefig("../output/transpose_time_vs_matrix_size_Implicit.pdf", format='pdf')
     plt.clf()

@@ -89,41 +89,37 @@ def serial(filename):
     plt.savefig("../output/transpose_time_vs_matrix_size_Serial.pdf", format='pdf')
     plt.clf()
     
-def implicit(filename):
-    # Carica i dati dal file in un DataFrame
-    data = pd.read_csv(filename, delimiter=";", header=None, names=["Dimensione", "Tempo", "Ottimizzazione"])
-    
-    # Estrai il tipo di ottimizzazione e il suo valore numerico
-    data['Tipo_Ottimizzazione'] = data['Ottimizzazione'].apply(lambda x: x.split('=')[0])
-    data['Valore_Ottimizzazione'] = data['Ottimizzazione'].apply(lambda x: int(x.split('=')[1]))
-    
-    # Crea il grafico
-    plt.figure(figsize=(10,6))
-    
-    # Per ogni combinazione di tipo di ottimizzazione e valore, disegna una curva
-    for ottimizzazione in data['Tipo_Ottimizzazione'].unique():
-        print(ottimizzazione)
-        for valore in data['Valore_Ottimizzazione'].unique():
-            # Filtro dei dati per una specifica combinazione di ottimizzazione e valore
-            df_filtered = data[(data['Tipo_Ottimizzazione'] == ottimizzazione) & (data['Valore_Ottimizzazione'] == valore)]
-            if not df_filtered.empty:
-                # Traccia il grafico per questa combinazione
-                plt.plot(df_filtered['Dimensione'], df_filtered['Tempo'], label=f"{ottimizzazione}={valore}")
-    
-    # Aggiungi etichette e titolo
-    plt.xlabel('Dimensione')
-    plt.ylabel('Tempo')
-    plt.title('Tempo vs Dimensione per differenti Ottimizzazioni')
-    plt.grid(True)
-    
-    # Posizionare la legenda fuori dal grafico
-    #plt.legend(title="Tipo di Ottimizzazione e Valore", bbox_to_anchor=(1.05, 0.5), loc='center left')
-    
-    # Mostra il grafico con la legenda esterna
-    plt.tight_layout()  # Aggiungi un po' di spazio per non sovrapporre il grafico con la legenda
-    #plt.show()
-    plt.savefig("../output/transpose_time_vs_matrix_size_Implicit.pdf", format='pdf')
-    plt.clf()
+def implicit(filename,filter_keyword=None):
+       # Leggi il file CSV
+    data = pd.read_csv(filename, sep=';', header=None, names=['X', 'Y', 'Type'])
+
+    # Crea una nuova colonna per il gruppo basato sulla parte sinistra della colonna 'Type'
+    data['Group'] = data['Type'].str.split("=").str[0]
+
+    # Trova tutti i gruppi distinti
+    unique_groups = data['Group'].unique()
+
+    # Itera su ogni gruppo distinto
+    for group in unique_groups:
+        # Filtra i dati per il gruppo corrente
+        group_data = data[data['Group'] == group]
+
+        # Raggruppa per 'Type' per plottare ogni riga separatamente
+        grouped_data = group_data.groupby('Type')
+
+        # Crea il grafico
+        plt.figure(figsize=(10, 6))
+        for group_type, group_subset in grouped_data:
+            plt.plot(group_subset['X'], group_subset['Y'], marker='o', label=group_type)
+
+        # Personalizza il grafico
+        plt.title(f"Grafico per il gruppo: {group}")
+        plt.xlabel("X")
+        plt.ylabel("Y")
+        plt.legend(title="Type")
+        plt.grid(True)
+        plt.savefig(f"../output/transpose_time_vs_matrix_size_Implicit_{group}.pdf", format='pdf')
+        plt.clf()
 
 
 def omp(filename):
