@@ -15,7 +15,7 @@ void matTransposeSerial(vector<vector<float>>& M,int n,vector<vector<float>>& T,
     }
 }
 
-bool checkSymSerial(const vector<vector<float>>& M,int n){
+bool checkSymSerial(const vector<vector<float>>& M,int n, int n_thread){
     bool isSymmetric = true; 
 
     for (size_t i = 0; i < n; ++i) {

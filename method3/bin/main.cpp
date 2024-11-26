@@ -16,12 +16,12 @@ void matTransposeSerial(vector<vector<float>>& T,int n,int n_thread);      //imp
 void matTransposeImplicit(vector<vector<float>>& T,int n,int n_thread);
 void matTransposeOmp(vector<vector<float>>& T,int n, int n_thread);
 
-bool checkSymSerial(const vector<vector<float>>& M,int n);
-bool checkSymImplicit(const vector<vector<float>>& M,int n);
-bool checkSymOmp(const vector<vector<float>>& M,int n);
+bool checkSymSerial(const vector<vector<float>>& M,int n, int n_thread);
+bool checkSymImplicit(const vector<vector<float>>& M,int n, int n_thread);
+bool checkSymOmp(const vector<vector<float>>& M,int n, int n_thread);
 
 void (*matTranspose)(vector<vector<float>>& T,int n, int n_thread) = nullptr;   // Puntatore alla funzione
-bool (*checkSym)(const vector<vector<float>>& M,int n) = nullptr;
+bool (*checkSym)(const vector<vector<float>>& M,int n, int n_thread) = nullptr;
 
 
 void initializeMatrix(vector<vector<float>>& matrix, int n) {     // Funzione per inizializzare una matrice n x n con numeri casuali a virgola mobile                                                                  
@@ -90,13 +90,15 @@ int main(int argc, char* argv[]) {
     initializeMatrix(M, n);                                                       // Inizializziamo la matrice con valori casuali e la sua trasposta
     //printMatrix(M,n);
     //printMatrix(T,n);
+    checkSym = checkSymSerial;
+    checkSym(M,n,1);
+    checkSym = checkSymImplicit;
+    checkSym(M,n,1);
      
     for (int i = 0; i < TEST; ++i) {
             T = M; 
             //Serial implementation---------------------------------------------
             matTranspose = matTransposeSerial; 
-            //checkSym = checkSymSerial;
-            //checkSym(M,n);
             wt1 = omp_get_wtime();
             matTranspose(T,n,1);
             wt2 = omp_get_wtime();
@@ -106,8 +108,6 @@ int main(int argc, char* argv[]) {
             T = M;
             //Implicit implementation-------------------------------------------
             matTranspose = matTransposeImplicit; 
-            //checkSym = checkSymImplicit;
-            //checkSym(M,n);
             wt1 = omp_get_wtime();
             matTranspose(T,n,1);
             wt2 = omp_get_wtime();
@@ -119,14 +119,16 @@ int main(int argc, char* argv[]) {
     cout << "Implicit (avarege of 5) " << (Itime/TEST)<< " sec" << endl<<endl;  
     writeToFile("../output/Serial.csv",num,(Stime/TEST));     //--------------------------------------------write file Serial
     writeToFile("../output/Implicit.csv",num,(Itime/TEST),compileOpt+"=method3"); //-----------------------------------------write file implicit
-    //printMatrix(T,n);                         
+    //printMatrix(T,n);
+    
+                      
     for (int& thread_count : n_threads) {
+        checkSym = checkSymOmp;
+        checkSym(M,n,thread_count);   
         for (int i = 0; i < TEST; ++i) {
             T = M;
             //Omp implementation-------------------------------------------------
             matTranspose = matTransposeOmp; 
-            //checkSym = checkSymOmp;
-            //checkSym(M,n);
             wt1 = omp_get_wtime();
             matTranspose(T,n,thread_count);
             wt2 = omp_get_wtime();

@@ -113,6 +113,7 @@ def implicit(filename,filter_keyword=None):
             plt.plot(group_subset['X'], group_subset['Y'], marker='o', label=group_type)
 
         # Personalizza il grafico
+        plt.yscale("log")
         plt.title(f"Grafico per il gruppo: {group}")
         plt.xlabel("X")
         plt.ylabel("Y")
