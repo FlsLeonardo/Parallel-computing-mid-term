@@ -1,360 +1,450 @@
-4;2.30595e-06;serial
-4;1.34856e-06;O1 -fprefetch-loop-arrays
-4;7.91624e-06;serial
-4;1.04308e-06;O1 -fprefetch-loop-arrays
-4;7.78027e-06;serial
-4;9.87202e-07;O1 -fprefetch-loop-arrays
-4;7.69272e-06;serial
-4;9.76026e-07;O1 -fprefetch-loop-arrays
-4;7.81752e-06;serial
-4;9.87202e-07;O1 -fprefetch-loop-arrays
-5;9.94466e-06;serial
-5;3.75509e-06;O1 -fprefetch-loop-arrays
-5;8.77492e-06;serial
-5;3.53344e-06;O1 -fprefetch-loop-arrays
-5;2.88766e-05;serial
-5;3.56324e-06;O1 -fprefetch-loop-arrays
-5;2.86475e-05;serial
-5;3.52412e-06;O1 -fprefetch-loop-arrays
-5;2.864e-05;serial
-5;3.51109e-06;O1 -fprefetch-loop-arrays
-6;3.83761e-05;serial
-6;1.46423e-05;O1 -fprefetch-loop-arrays
-6;0.000112038;serial
-6;1.44504e-05;O1 -fprefetch-loop-arrays
-6;0.000111643;serial
-6;1.43368e-05;O1 -fprefetch-loop-arrays
-6;0.000111651;serial
-6;1.38991e-05;O1 -fprefetch-loop-arrays
-6;0.000111636;serial
-6;1.45193e-05;O1 -fprefetch-loop-arrays
-7;0.000149444;serial
-7;5.4311e-05;O1 -fprefetch-loop-arrays
-7;0.000453429;serial
-7;5.40912e-05;O1 -fprefetch-loop-arrays
-7;0.000133257;serial
-7;5.40856e-05;O1 -fprefetch-loop-arrays
-7;0.000439845;serial
-7;5.39571e-05;O1 -fprefetch-loop-arrays
-7;0.000449061;serial
-7;5.39795e-05;O1 -fprefetch-loop-arrays
-8;0.000572393;serial
-8;0.000224005;O1 -fprefetch-loop-arrays
-8;0.000997979;serial
-8;0.00022693;O1 -fprefetch-loop-arrays
-8;0.000744063;serial
-8;0.000228254;O1 -fprefetch-loop-arrays
-8;0.000818107;serial
-8;0.000217849;O1 -fprefetch-loop-arrays
-8;0.00134819;serial
-8;0.000217594;O1 -fprefetch-loop-arrays
-9;0.0023135;serial
-9;0.00112163;O1 -fprefetch-loop-arrays
-9;0.00246563;serial
-9;0.000820844;O1 -fprefetch-loop-arrays
-9;0.00277757;serial
-9;0.000894928;O1 -fprefetch-loop-arrays
-9;0.00259835;serial
-9;0.00120713;O1 -fprefetch-loop-arrays
-9;0.0023413;serial
-9;0.000619845;O1 -fprefetch-loop-arrays
-10;0.00986004;serial
-10;0.00494166;O1 -fprefetch-loop-arrays
-10;0.0111629;serial
-10;0.00189211;O1 -fprefetch-loop-arrays
-10;0.00962217;serial
-10;0.00188126;O1 -fprefetch-loop-arrays
-10;0.00962066;serial
-10;0.00260949;O1 -fprefetch-loop-arrays
-10;0.00964897;serial
-10;0.00192479;O1 -fprefetch-loop-arrays
-11;0.0503324;serial
-11;0.0217576;O1 -fprefetch-loop-arrays
-11;0.0464896;serial
-11;0.0215291;O1 -fprefetch-loop-arrays
-11;0.0461018;serial
-11;0.0212194;O1 -fprefetch-loop-arrays
-11;0.04583;serial
-11;0.021375;O1 -fprefetch-loop-arrays
-11;0.0455919;serial
-11;0.021248;O1 -fprefetch-loop-arrays
-12;0.2558;serial
-12;0.125101;O1 -fprefetch-loop-arrays
-12;0.249852;serial
-12;0.0989522;O1 -fprefetch-loop-arrays
-12;0.247734;serial
-12;0.098972;O1 -fprefetch-loop-arrays
-12;0.276424;serial
-12;0.0993833;O1 -fprefetch-loop-arrays
-12;0.246549;serial
-12;0.0983902;O1 -fprefetch-loop-arrays
-4;2.33762e-06;serial
-4;1.24238e-06;O1 -funroll-loops
-4;8.10623e-06;serial
-4;1.15298e-06;O1 -funroll-loops
-4;2.27056e-06;serial
-4;1.1865e-06;O1 -funroll-loops
-4;7.84732e-06;serial
-4;1.02818e-06;O1 -funroll-loops
-4;7.97398e-06;serial
-4;1.31316e-06;O1 -funroll-loops
-5;9.89437e-06;serial
-5;3.78303e-06;O1 -funroll-loops
-5;2.91523e-05;serial
-5;3.57069e-06;O1 -funroll-loops
-5;4.68194e-05;serial
-5;3.60794e-06;O1 -funroll-loops
-5;2.89083e-05;serial
+4;2.4233e-06;serial
+4;1.35973e-06;O1 -ffast-math
+4;8.02241e-06;serial
+4;1.05239e-06;O1 -ffast-math
+4;7.91252e-06;serial
+4;1.00583e-06;O1 -ffast-math
+4;2.16626e-06;serial
+4;1.00955e-06;O1 -ffast-math
+4;7.75419e-06;serial
+4;9.9279e-07;O1 -ffast-math
+5;9.87202e-06;serial
+5;3.85009e-06;O1 -ffast-math
+5;2.90014e-05;serial
+5;3.65824e-06;O1 -ffast-math
+5;2.88654e-05;serial
+5;3.50736e-06;O1 -ffast-math
+5;2.9048e-05;serial
+5;3.45521e-06;O1 -ffast-math
+5;2.87574e-05;serial
+5;3.44776e-06;O1 -ffast-math
+6;3.79253e-05;serial
+6;1.44728e-05;O1 -ffast-math
+6;0.000111913;serial
+6;1.40332e-05;O1 -ffast-math
+6;0.000112016;serial
+6;1.43982e-05;O1 -ffast-math
+6;0.000152199;serial
+6;1.43256e-05;O1 -ffast-math
+6;0.000111626;serial
+6;1.42679e-05;O1 -ffast-math
+7;0.000148544;serial
+7;5.58197e-05;O1 -ffast-math
+7;0.000275882;serial
+7;5.61029e-05;O1 -ffast-math
+7;0.000439672;serial
+7;5.54137e-05;O1 -ffast-math
+7;0.00044762;serial
+7;5.59278e-05;O1 -ffast-math
+7;0.000406621;serial
+7;5.58645e-05;O1 -ffast-math
+8;0.000627646;serial
+8;0.00022174;O1 -ffast-math
+8;0.000559255;serial
+8;0.000217453;O1 -ffast-math
+8;0.000523388;serial
+8;0.000217896;O1 -ffast-math
+8;0.00122205;serial
+8;0.000218375;O1 -ffast-math
+8;0.000541985;serial
+8;0.00021789;O1 -ffast-math
+9;0.0023219;serial
+9;0.000540726;O1 -ffast-math
+9;0.00267696;serial
+9;0.000884794;O1 -ffast-math
+9;0.0028823;serial
+9;0.000927046;O1 -ffast-math
+9;0.00287334;serial
+9;0.00113662;O1 -ffast-math
+9;0.00262193;serial
+9;0.00070552;O1 -ffast-math
+10;0.0099621;serial
+10;0.00191331;O1 -ffast-math
+10;0.00963133;serial
+10;0.00203807;O1 -ffast-math
+10;0.0095395;serial
+10;0.00266484;O1 -ffast-math
+10;0.0103193;serial
+10;0.00217204;O1 -ffast-math
+10;0.0102898;serial
+10;0.00219044;O1 -ffast-math
+11;0.0509652;serial
+11;0.0217131;O1 -ffast-math
+11;0.0467866;serial
+11;0.0211461;O1 -ffast-math
+11;0.046431;serial
+11;0.0214485;O1 -ffast-math
+11;0.0456539;serial
+11;0.0213239;O1 -ffast-math
+11;0.0454563;serial
+11;0.0212191;O1 -ffast-math
+12;0.255237;serial
+12;0.124167;O1 -ffast-math
+12;0.250067;serial
+12;0.0987866;O1 -ffast-math
+12;0.247845;serial
+12;0.0986588;O1 -ffast-math
+12;0.273731;serial
+12;0.0983837;O1 -ffast-math
+12;0.24587;serial
+12;0.09848;O1 -ffast-math
+4;2.33948e-06;serial
+4;7.17118e-07;O2 -funroll-loops
+4;8.18074e-06;serial
+4;6.48201e-07;O2 -funroll-loops
+4;8.04476e-06;serial
+4;6.70552e-07;O2 -funroll-loops
+4;7.9181e-06;serial
+4;6.01634e-07;O2 -funroll-loops
+4;7.75233e-06;serial
+4;6.07222e-07;O2 -funroll-loops
+5;9.96515e-06;serial
+5;2.17557e-06;O2 -funroll-loops
+5;2.89995e-05;serial
+5;1.96882e-06;O2 -funroll-loops
+5;2.92324e-05;serial
+5;2.00607e-06;O2 -funroll-loops
+5;2.88896e-05;serial
+5;2.00607e-06;O2 -funroll-loops
+5;2.89474e-05;serial
+5;1.99676e-06;O2 -funroll-loops
+6;3.82382e-05;serial
+6;8.49552e-06;O2 -funroll-loops
+6;9.92361e-05;serial
+6;8.35769e-06;O2 -funroll-loops
+6;0.000111882;serial
+6;8.18819e-06;O2 -funroll-loops
+6;8.70284e-05;serial
+6;8.23848e-06;O2 -funroll-loops
+6;0.000112055;serial
+6;2.36742e-06;O2 -funroll-loops
+7;0.000148596;serial
+7;3.18531e-05;O2 -funroll-loops
+7;0.000474377;serial
+7;3.11043e-05;O2 -funroll-loops
+7;0.000441352;serial
+7;3.06666e-05;O2 -funroll-loops
+7;0.000365566;serial
+7;3.07634e-05;O2 -funroll-loops
+7;0.000451986;serial
+7;3.09143e-05;O2 -funroll-loops
+8;0.000595184;serial
+8;0.000168493;O2 -funroll-loops
+8;0.000804724;serial
+8;0.000139339;O2 -funroll-loops
+8;0.000774652;serial
+8;0.000137769;O2 -funroll-loops
+8;0.00128925;serial
+8;0.000136863;O2 -funroll-loops
+8;0.00103153;serial
+8;0.000138473;O2 -funroll-loops
+9;0.0023241;serial
+9;0.000539389;O2 -funroll-loops
+9;0.00264735;serial
+9;0.0012606;O2 -funroll-loops
+9;0.0028914;serial
+9;0.00090424;O2 -funroll-loops
+9;0.00263682;serial
+9;0.00119811;O2 -funroll-loops
+9;0.00290116;serial
+9;0.000856828;O2 -funroll-loops
+10;0.0103448;serial
+10;0.00192239;O2 -funroll-loops
+10;0.0097648;serial
+10;0.0021169;O2 -funroll-loops
+10;0.00992835;serial
+10;0.00164913;O2 -funroll-loops
+10;0.0102182;serial
+10;0.00176876;O2 -funroll-loops
+10;0.00957253;serial
+10;0.00170403;O2 -funroll-loops
+11;0.0511242;serial
+11;0.0254193;O2 -funroll-loops
+11;0.0466723;serial
+11;0.0263558;O2 -funroll-loops
+11;0.0485888;serial
+11;0.0265368;O2 -funroll-loops
+11;0.0478891;serial
+11;0.0262397;O2 -funroll-loops
+11;0.0477121;serial
+11;0.0265527;O2 -funroll-loops
+12;0.259058;serial
+12;0.129259;O2 -funroll-loops
+12;0.249384;serial
+12;0.112044;O2 -funroll-loops
+12;0.245692;serial
+12;0.111459;O2 -funroll-loops
+12;0.257515;serial
+12;0.11171;O2 -funroll-loops
+12;0.244056;serial
+12;0.111644;O2 -funroll-loops
+4;2.30968e-06;serial
+4;1.30758e-06;O1 -funroll-loops
+4;8.07829e-06;serial
+4;1.09896e-06;O1 -funroll-loops
+4;8.11741e-06;serial
+4;1.06357e-06;O1 -funroll-loops
+4;7.86409e-06;serial
+4;1.07661e-06;O1 -funroll-loops
+4;7.92742e-06;serial
+4;1.112e-06;O1 -funroll-loops
+5;1.0008e-05;serial
+5;4.00282e-06;O1 -funroll-loops
+5;9.84594e-06;serial
 5;3.58373e-06;O1 -funroll-loops
-5;2.88431e-05;serial
-5;3.59118e-06;O1 -funroll-loops
-6;3.80948e-05;serial
-6;1.40015e-05;O1 -funroll-loops
-6;0.000112405;serial
-6;1.37389e-05;O1 -funroll-loops
-6;0.000112357;serial
-6;1.35582e-05;O1 -funroll-loops
-6;0.000112284;serial
-6;1.35191e-05;O1 -funroll-loops
-6;0.000112096;serial
-6;1.3642e-05;O1 -funroll-loops
-7;0.000148639;serial
-7;5.45196e-05;O1 -funroll-loops
-7;0.000424189;serial
-7;5.50505e-05;O1 -funroll-loops
-7;0.000440862;serial
-7;1.59349e-05;O1 -funroll-loops
-7;0.000449777;serial
-7;5.39031e-05;O1 -funroll-loops
-7;0.000440693;serial
-7;5.4447e-05;O1 -funroll-loops
-8;0.000627544;serial
-8;0.000221759;O1 -funroll-loops
-8;0.00127448;serial
-8;0.000217615;O1 -funroll-loops
-8;0.0011128;serial
-8;0.000217203;O1 -funroll-loops
-8;0.000728995;serial
-8;0.000227695;O1 -funroll-loops
-8;0.00096624;serial
-8;0.000216901;O1 -funroll-loops
-9;0.00230469;serial
-9;0.000450764;O1 -funroll-loops
-9;0.00237677;serial
-9;0.000474481;O1 -funroll-loops
-9;0.00248212;serial
-9;0.00044569;O1 -funroll-loops
-9;0.00312302;serial
-9;0.00122457;O1 -funroll-loops
-9;0.00299987;serial
-9;0.000773203;O1 -funroll-loops
-10;0.00995925;serial
-10;0.00216197;O1 -funroll-loops
-10;0.0096907;serial
-10;0.00210261;O1 -funroll-loops
-10;0.00996597;serial
-10;0.00262169;O1 -funroll-loops
-10;0.00978855;serial
-10;0.00189201;O1 -funroll-loops
-10;0.0102845;serial
-10;0.00208798;O1 -funroll-loops
-11;0.0517821;serial
-11;0.0217816;O1 -funroll-loops
-11;0.0470665;serial
-11;0.0213651;O1 -funroll-loops
-11;0.0461041;serial
-11;0.0211137;O1 -funroll-loops
-11;0.0457654;serial
-11;0.021084;O1 -funroll-loops
-11;0.0458565;serial
-11;0.0210419;O1 -funroll-loops
-12;0.255678;serial
-12;0.125737;O1 -funroll-loops
-12;0.25018;serial
-12;0.0994524;O1 -funroll-loops
-12;0.247956;serial
-12;0.0993595;O1 -funroll-loops
-12;0.274815;serial
-12;0.0989842;O1 -funroll-loops
-12;0.246217;serial
-12;0.0989433;O1 -funroll-loops
-4;2.52016e-06;serial
-4;1.32062e-06;O1
-4;8.06525e-06;serial
-4;1.08406e-06;O1
-4;7.81938e-06;serial
-4;9.90927e-07;O1
-4;7.78213e-06;serial
-4;9.79751e-07;O1
-4;7.83987e-06;serial
-4;1.00955e-06;O1
-5;1.00713e-05;serial
-5;4.63054e-06;O1
-5;2.92789e-05;serial
-5;4.41074e-06;O1
-5;2.90871e-05;serial
-5;4.39212e-06;O1
-5;2.92566e-05;serial
-5;4.34369e-06;O1
-5;2.90871e-05;serial
-5;4.27663e-06;O1
-6;3.81134e-05;serial
-6;1.6572e-05;O1
-6;0.000112554;serial
-6;3.78117e-06;O1
-6;0.000114309;serial
-6;4.56162e-06;O1
-6;0.000112657;serial
-6;1.42381e-05;O1
-6;5.94128e-05;serial
-6;1.35917e-05;O1
-7;0.000149576;serial
-7;5.6386e-05;O1
-7;0.000455562;serial
-7;5.57415e-05;O1
-7;0.000441525;serial
-7;5.60954e-05;O1
-7;0.000391973;serial
-7;6.28643e-05;O1
-7;0.000458682;serial
-7;5.64624e-05;O1
-8;0.000642736;serial
-8;0.000225421;O1
-8;0.00113481;serial
-8;0.000221668;O1
-8;0.000789326;serial
-8;8.62945e-05;O1
-8;0.00135775;serial
-8;0.000221085;O1
-8;0.00079865;serial
-8;0.000221387;O1
-9;0.00243114;serial
-9;0.000491563;O1
-9;0.00304789;serial
-9;0.00106183;O1
-9;0.00283257;serial
-9;0.00069043;O1
-9;0.00271947;serial
-9;0.000624817;O1
-9;0.00236348;serial
-9;0.000464335;O1
-10;0.0099417;serial
-10;0.00233979;O1
-10;0.0102925;serial
-10;0.00194995;O1
-10;0.0103373;serial
-10;0.00227937;O1
-10;0.0104895;serial
-10;0.00203271;O1
-10;0.00980655;serial
-10;0.00214824;O1
-11;0.0519467;serial
-11;0.0220077;O1
-11;0.0475257;serial
-11;0.0217802;O1
-11;0.0463395;serial
-11;0.0214232;O1
-11;0.046609;serial
-11;0.0215182;O1
-11;0.0458999;serial
-11;0.0209171;O1
-12;0.255949;serial
-12;0.125491;O1
-12;0.24909;serial
-12;0.0983525;O1
-12;0.246637;serial
-12;0.0988385;O1
-12;0.273953;serial
-12;0.0984562;O1
-12;0.246592;serial
-12;0.0982847;O1
-4;2.33017e-06;serial
-4;8.08388e-07;O2
-4;8.05967e-06;serial
-4;7.59959e-07;O2
-4;7.69272e-06;serial
-4;7.02217e-07;O2
-4;7.72253e-06;serial
-4;6.59376e-07;O2
-4;7.63871e-06;serial
-4;6.66827e-07;O2
-5;9.89996e-06;serial
-5;2.96161e-06;O2
-5;2.91709e-05;serial
-5;2.79583e-06;O2
-5;2.89828e-05;serial
-5;2.79583e-06;O2
-5;2.90126e-05;serial
-5;2.61702e-06;O2
-5;2.88114e-05;serial
-5;2.5779e-06;O2
-6;3.77689e-05;serial
-6;8.89041e-06;O2
-6;0.000111746;serial
-6;2.72505e-06;O2
-6;0.000111254;serial
-6;9.1251e-06;O2
-6;0.000111539;serial
-6;8.71159e-06;O2
-6;0.000111811;serial
-6;8.9258e-06;O2
-7;0.000165725;serial
-7;3.56175e-05;O2
-7;0.000441972;serial
-7;3.41106e-05;O2
-7;0.000441877;serial
-7;3.39765e-05;O2
-7;0.000442009;serial
-7;4.44092e-05;O2
-7;0.000215704;serial
-7;3.37102e-05;O2
-8;0.00057443;serial
-8;0.000169082;O2
-8;0.000803476;serial
-8;0.000149677;O2
-8;0.00115263;serial
-8;0.000109477;O2
-8;0.000992056;serial
-8;0.000146005;O2
-8;0.00114955;serial
-8;0.000148464;O2
-9;0.00231436;serial
-9;0.000970753;O2
-9;0.00289972;serial
-9;0.000949373;O2
-9;0.00299442;serial
-9;0.000793308;O2
-9;0.0024722;serial
-9;0.000656437;O2
-9;0.00266098;serial
-9;0.00063329;O2
-10;0.0100482;serial
-10;0.0020308;O2
-10;0.0102199;serial
-10;0.00218416;O2
-10;0.0103256;serial
-10;0.00189203;O2
-10;0.0096769;serial
-10;0.0020899;O2
-10;0.0102383;serial
-10;0.00209911;O2
-11;0.0511913;serial
-11;0.0257711;O2
-11;0.0474485;serial
-11;0.0254466;O2
-11;0.0461745;serial
-11;0.0247068;O2
-11;0.0462756;serial
-11;0.024793;O2
-11;0.0456505;serial
-11;0.0253835;O2
-12;0.254722;serial
-12;0.133979;O2
-12;0.249535;serial
-12;0.112507;O2
-12;0.246928;serial
-12;0.112439;O2
-12;0.271059;serial
-12;0.112554;O2
-12;0.245234;serial
-12;0.112594;O2
+5;2.92659e-05;serial
+5;3.54275e-06;O1 -funroll-loops
+5;2.94074e-05;serial
+5;3.58e-06;O1 -funroll-loops
+5;3.8499e-05;serial
+5;3.54461e-06;O1 -funroll-loops
+6;3.7808e-05;serial
+6;1.37854e-05;O1 -funroll-loops
+6;0.000111571;serial
+6;1.36551e-05;O1 -funroll-loops
+6;0.000111315;serial
+6;1.37314e-05;O1 -funroll-loops
+6;5.46835e-05;serial
+6;1.35619e-05;O1 -funroll-loops
+6;0.000111269;serial
+6;1.36774e-05;O1 -funroll-loops
+7;0.000149122;serial
+7;5.51809e-05;O1 -funroll-loops
+7;0.00045673;serial
+7;5.48959e-05;O1 -funroll-loops
+7;0.000133343;serial
+7;5.45885e-05;O1 -funroll-loops
+7;0.000452859;serial
+7;5.45364e-05;O1 -funroll-loops
+7;0.000210296;serial
+7;5.47394e-05;O1 -funroll-loops
+8;0.000574529;serial
+8;7.18161e-05;O1 -funroll-loops
+8;0.00104729;serial
+8;0.000238104;O1 -funroll-loops
+8;0.000801101;serial
+8;0.000226144;O1 -funroll-loops
+8;0.00123356;serial
+8;0.000217376;O1 -funroll-loops
+8;0.000825446;serial
+8;0.000217739;O1 -funroll-loops
+9;0.0023227;serial
+9;0.00119793;O1 -funroll-loops
+9;0.00256569;serial
+9;0.000459319;O1 -funroll-loops
+9;0.00248244;serial
+9;0.0010792;O1 -funroll-loops
+9;0.00273994;serial
+9;0.000536354;O1 -funroll-loops
+9;0.00288507;serial
+9;0.00054531;O1 -funroll-loops
+10;0.0099311;serial
+10;0.00244686;O1 -funroll-loops
+10;0.0103591;serial
+10;0.00213015;O1 -funroll-loops
+10;0.00984363;serial
+10;0.00204946;O1 -funroll-loops
+10;0.00987461;serial
+10;0.00184927;O1 -funroll-loops
+10;0.00997441;serial
+10;0.00219345;O1 -funroll-loops
+11;0.0513035;serial
+11;0.0219764;O1 -funroll-loops
+11;0.0468305;serial
+11;0.0214206;O1 -funroll-loops
+11;0.0459269;serial
+11;0.021002;O1 -funroll-loops
+11;0.0458135;serial
+11;0.0214312;O1 -funroll-loops
+11;0.0459383;serial
+11;0.0212031;O1 -funroll-loops
+12;0.256515;serial
+12;0.126067;O1 -funroll-loops
+12;0.24858;serial
+12;0.099694;O1 -funroll-loops
+12;0.246584;serial
+12;0.099433;O1 -funroll-loops
+12;0.272177;serial
+12;0.0991876;O1 -funroll-loops
+12;0.244507;serial
+12;0.0987443;O1 -funroll-loops
+4;2.21469e-06;serial
+4;1.9595e-06;O1
+4;8.15839e-06;serial
+4;1.12131e-06;O1
+4;7.81007e-06;serial
+4;1.05798e-06;O1
+4;7.88085e-06;serial
+4;3.20375e-07;O1
+4;7.80262e-06;serial
+4;1.03191e-06;O1
+5;9.8478e-06;serial
+5;3.75137e-06;O1
+5;3.84133e-05;serial
+5;3.49618e-06;O1
+5;2.86531e-05;serial
+5;3.45521e-06;O1
+5;2.85748e-05;serial
+5;3.46638e-06;O1
+5;2.88151e-05;serial
+5;3.42913e-06;O1
+6;3.78583e-05;serial
+6;1.35899e-05;O1
+6;0.000152709;serial
+6;1.32937e-05;O1
+6;0.000111189;serial
+6;1.32788e-05;O1
+6;0.000110837;serial
+6;1.32807e-05;O1
+6;0.000111299;serial
+6;1.32695e-05;O1
+7;0.000148764;serial
+7;5.43501e-05;O1
+7;0.000438647;serial
+7;5.41192e-05;O1
+7;0.000463085;serial
+7;5.41024e-05;O1
+7;0.000133134;serial
+7;5.41639e-05;O1
+7;0.000439387;serial
+7;5.41974e-05;O1
+8;0.000586214;serial
+8;0.000219829;O1
+8;0.00135238;serial
+8;0.000226995;O1
+8;0.00138992;serial
+8;0.000215791;O1
+8;0.00134172;serial
+8;0.000190491;O1
+8;0.00121199;serial
+8;0.00021584;O1
+9;0.00230958;serial
+9;0.000824103;O1
+9;0.00265225;serial
+9;0.000543427;O1
+9;0.00255372;serial
+9;0.00056369;O1
+9;0.00249335;serial
+9;0.000431569;O1
+9;0.00304632;serial
+9;0.000740806;O1
+10;0.00997218;serial
+10;0.00266976;O1
+10;0.0101077;serial
+10;0.00225203;O1
+10;0.00968424;serial
+10;0.00209642;O1
+10;0.00978625;serial
+10;0.00193062;O1
+10;0.00994332;serial
+10;0.00261674;O1
+11;0.0524279;serial
+11;0.0216178;O1
+11;0.0472099;serial
+11;0.021634;O1
+11;0.0462346;serial
+11;0.0217668;O1
+11;0.0460227;serial
+11;0.0217141;O1
+11;0.0457992;serial
+11;0.0208209;O1
+12;0.255719;serial
+12;0.123982;O1
+12;0.250528;serial
+12;0.0992809;O1
+12;0.248394;serial
+12;0.0992586;O1
+12;0.274748;serial
+12;0.0985505;O1
+12;0.245456;serial
+12;0.09744;O1
+4;2.32831e-06;serial
+4;8.95932e-07;O2
+4;7.78958e-06;serial
+4;7.3947e-07;O2
+4;7.87154e-06;serial
+4;6.89179e-07;O2
+4;7.8138e-06;serial
+4;6.72415e-07;O2
+4;7.68341e-06;serial
+4;6.10948e-07;O2
+5;9.96701e-06;serial
+5;3.0268e-06;O2
+5;2.9128e-05;serial
+5;2.82191e-06;O2
+5;2.87537e-05;serial
+5;2.81818e-06;O2
+5;2.87741e-05;serial
+5;2.85171e-06;O2
+5;2.87276e-05;serial
+5;8.60542e-07;O2
+6;3.78657e-05;serial
+6;9.15863e-06;O2
+6;0.00011153;serial
+6;8.66689e-06;O2
+6;0.000111749;serial
+6;8.81404e-06;O2
+6;0.000111608;serial
+6;8.84943e-06;O2
+6;0.000111651;serial
+6;8.90531e-06;O2
+7;0.000148937;serial
+7;3.46657e-05;O2
+7;0.000275284;serial
+7;3.38089e-05;O2
+7;0.000189412;serial
+7;3.37902e-05;O2
+7;0.000398237;serial
+7;3.40305e-05;O2
+7;0.0004468;serial
+7;3.40119e-05;O2
+8;0.000625787;serial
+8;0.000168877;O2
+8;0.00137406;serial
+8;6.96182e-05;O2
+8;0.000636468;serial
+8;0.000148516;O2
+8;0.000637349;serial
+8;0.00014678;O2
+8;0.000722094;serial
+8;0.000145543;O2
+9;0.00230137;serial
+9;0.00102931;O2
+9;0.00310693;serial
+9;0.000864694;O2
+9;0.00278013;serial
+9;0.00108705;O2
+9;0.00228895;serial
+9;0.00116399;O2
+9;0.00277845;serial
+9;0.00102646;O2
+10;0.00972369;serial
+10;0.0020944;O2
+10;0.0101235;serial
+10;0.00191468;O2
+10;0.00986917;serial
+10;0.00188711;O2
+10;0.0100626;serial
+10;0.00196887;O2
+10;0.00993813;serial
+10;0.00187892;O2
+11;0.0513974;serial
+11;0.025066;O2
+11;0.0468326;serial
+11;0.0254254;O2
+11;0.045876;serial
+11;0.0249556;O2
+11;0.0462081;serial
+11;0.0254014;O2
+11;0.0455264;serial
+11;0.0249657;O2
+12;0.254929;serial
+12;0.135372;O2
+12;0.248493;serial
+12;0.112388;O2
+12;0.24657;serial
+12;0.112206;O2
+12;0.269166;serial
+12;0.112085;O2
+12;0.243918;serial
+12;0.111588;O2
