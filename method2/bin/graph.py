@@ -2,6 +2,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from collections import defaultdict
 
 def main():
     # Controllo se sono stati forniti parametri
@@ -9,8 +10,6 @@ def main():
         print("Nessun parametro fornito.")
         serial("../output/Serial.csv")
         omp("../output/Omp.csv")
-        for num in range(4, 13):
-            efficency_speedup("../output/Omp.csv",num)
         speedup("../output/Omp.csv")
         efficiency("../output/Omp.csv")
         implicit("../output/Implicit.csv")
@@ -51,7 +50,8 @@ def serial(filename):
             matrix_size.append(int(data[0]))
             transpose_time.append(float(data[1]))
             blocks.append(int(data[2]))
-    
+    result = media(matrix_size, transpose_time, blocks)
+    matrix_size, transpose_time, blocks = zip(*result)
     # Converti le liste in array numpy
     matrix_size = np.array(matrix_size)
     transpose_time = np.array(transpose_time)
@@ -73,7 +73,7 @@ def serial(filename):
         plt.plot(block_matrix_size, block_transpose_time, label=f'Block Size {block}', marker='o')
 
     # Aggiungi etichette e titolo
-    plt.yscale("log")
+    #plt.yscale("log")
     plt.xlabel('Matrix Size')
     plt.ylabel('Transpose Time (seconds)')
     plt.title('Matrix Transpose Time vs Matrix Size for Different Block Sizes')
@@ -86,219 +86,288 @@ def serial(filename):
 
     # Mostra il grafico
     #plt.show()
-    plt.savefig("../output/transpose_time_vs_matrix_size_Serial.pdf", format='pdf')
+    plt.savefig("../pdf_graph/transpose_time_vs_matrix_size_Serial.pdf", format='pdf')
     plt.clf()
     
-def implicit(filename,filter_keyword=None):
-       # Leggi il file CSV
+def implicit(filename, filter_keyword=None):
+    # Leggi il file CSV
     data = pd.read_csv(filename, sep=';', header=None, names=['X', 'Y', 'Type'])
 
-    # Crea una nuova colonna per il gruppo basato sulla parte sinistra della colonna 'Type'
-    data['Group'] = data['Type'].str.split("=").str[0]
+    # Estrai la parte prima dell'uguale e la parte dopo
+    data[['Group', 'Value']] = data['Type'].str.extract(r'([A-Za-z0-9]+(?:\s*-?[A-Za-z0-9-]+)*)=(\d+)')
 
-    # Trova tutti i gruppi distinti
+    # Trova tutti i gruppi distinti (O2, O3, etc.)
     unique_groups = data['Group'].unique()
+    print(unique_groups)
 
-    # Itera su ogni gruppo distinto
+    # Crea il grafico
+    plt.figure(figsize=(10, 6))
+
+    # Itera attraverso ciascun gruppo (O2, O3, etc.)
     for group in unique_groups:
-        # Filtra i dati per il gruppo corrente
+        # Filtra i dati per il gruppo corrente (es. O2)
         group_data = data[data['Group'] == group]
 
-        # Raggruppa per 'Type' per plottare ogni riga separatamente
-        grouped_data = group_data.groupby('Type')
+        # Raggruppa per 'Value' (120, 155, etc.) e 'X' (dimensione della matrice)
+        grouped_data = group_data.groupby(['Value', 'X'])['Y'].mean().reset_index()
 
-        # Crea il grafico
-        plt.figure(figsize=(10, 6))
-        for group_type, group_subset in grouped_data:
-            plt.plot(group_subset['X'], group_subset['Y'], marker='o', label=group_type)
+        # Traccia ogni configurazione (es. O2=120, O2=155, etc.)
+        for value, group_subset in grouped_data.groupby('Value'):
+            # Traccia i dati per ogni configurazione (O2=120, O2=155, etc.)
+            plt.plot(group_subset['X'], group_subset['Y'], marker='o', label=f"{group}={value}")
 
-        # Personalizza il grafico
-        plt.yscale("log")
-        plt.title(f"Grafico per il gruppo: {group}")
-        plt.xlabel("X")
-        plt.ylabel("Y")
-        plt.legend(title="Type")
-        plt.grid(True)
-        plt.savefig(f"../output/transpose_time_vs_matrix_size_Implicit_{group}.pdf", format='pdf')
-        plt.clf()
+    # Personalizza il grafico
+    plt.yscale("log")  # Usa una scala logaritmica per visualizzare meglio i dati
+    plt.title("Tempi medi per dimensione della matrice, per ciascun gruppo (O2, O3, etc.)")
+    plt.xlabel("Dimensione della matrice (X)")
+    plt.ylabel("Tempi medi di esecuzione (Y)")
+    plt.legend(title="Configurazioni")
+    plt.grid(True)
 
+    # Salva il grafico come PDF
+    plt.tight_layout()
+    plt.savefig(f"../pdf_graph/transpose_time_vs_matrix_size_Implicit.pdf", format='pdf')
+    plt.clf()  # Pulisce la figura dopo averla salvata
 
 def omp(filename):
     dimensioni = []
     tempi = []
     thread_n = []
+    
+    # Leggi i dati dal file
     with open(filename, mode='r', encoding='utf-8') as file:
         for riga in file:
             valori = riga.strip().split(";")
-            dimensioni.append(int(valori[0]))
-            tempi.append(float(valori[1]))
-            thread_n.append(str(valori[2]))       
-    dati = sorted(zip(thread_n, dimensioni, tempi))
-    thread_n, dimensioni, tempi = zip(*dati)
-    dim = [[],[],[],[],[],[],[],[]]                         #dimensione divisa in base ai num threads
-    time = [[],[],[],[],[],[],[],[]]                          #tempo diviso in base ai num threads
-    for nthread, dim_, tempo in zip(thread_n, dimensioni, tempi):
-        if nthread == "1":
-            time[0].append(tempo)
-            dim[0].append(dim_)
-        elif nthread == "2":
-            time[1].append(tempo)
-            dim[1].append(dim_)
-        elif nthread == "4":
-            time[2].append(tempo)
-            dim[2].append(dim_)
-        elif nthread == "8":
-            time[3].append(tempo)
-            dim[3].append(dim_)
-        elif nthread == "16":
-            time[4].append(tempo)
-            dim[4].append(dim_)
-        elif nthread == "32":
-            time[5].append(tempo)
-            dim[5].append(dim_)
-        elif nthread == "64":
-            time[6].append(tempo)
-            dim[6].append(dim_)
-        elif nthread == "96":
-            time[7].append(tempo)
-            dim[7].append(dim_)  
-    plt.plot(dim[0], time[0], marker='o', linestyle='--', color='#ff0000', label='1 thread')
-    plt.plot(dim[1], time[1], marker='o', linestyle='--', color='#ff6100', label='2 thread')
-    plt.plot(dim[2], time[2], marker='o', linestyle='--', color='#ffdc00', label='4 thread')
-    plt.plot(dim[3], time[3], marker='o', linestyle='--', color='#55ff00', label='8 thread')
-    plt.plot(dim[4], time[4], marker='o', linestyle='--', color='#00ecff', label='16 thread')
-    plt.plot(dim[5], time[5], marker='o', linestyle='--', color='#0027ff', label='32 thread')
-    plt.plot(dim[6], time[6], marker='o', linestyle='--', color='#ae00ff', label='64 thread')
-    plt.plot(dim[7], time[7], marker='o', linestyle='--', color='#ff00f0', label='96 thread')
-    plt.yscale("log")
-    plt.xlabel('Dimensione della matrice (n)')
-    plt.ylabel('Tempo di trasposizione (secondi)')
-    plt.title('Tempo di Trasposizione Omp in funzione della Dimensione della Matrice')
+            dimensioni.append(int(valori[0]))  # Dimensione della matrice
+            tempi.append(float(valori[1]))     # Tempo di esecuzione
+            # Separazione della parte "Thr=96" e "Blk=2048"
+            thread_info = valori[2]
+            threads, blocksize = thread_info.split()  # separa "Thr=96" e "Blk=2048"
+            num_threads = threads.split('=')[1]  # estrae "96" da "Thr=96"
+            block_size = blocksize.split('=')[1]  # estrae "2048" da "Blk=2048"
+            thread_n.append(f"Thr={num_threads} Blk={block_size}")  # Memorizza i thread e blocco
+
+    # Calcola la media dei tempi per dimensioni e tipi
+    result = media(dimensioni, tempi, thread_n)
+    dimensioni, tempi, thread_n = zip(*result)  # Decomponi i risultati in tre liste separate
+
+    # Raggruppa i dati per tipo (numero di thread e dimensione del blocco)
+    grouped_data = defaultdict(list)
+    for dim, tempo, tipo in zip(dimensioni, tempi, thread_n):
+        grouped_data[tipo].append((dim, tempo))
+
+    # Crea il grafico
+    plt.figure(figsize=(12, 8))
+
+    # Traccia ogni gruppo (per ogni combinazione di numero di thread e dimensione del blocco)
+    for tipo, values in grouped_data.items():
+        values.sort()  # Ordina per dimensione (per avere una linea più ordinata)
+        dimensioni_sorted, tempi_sorted = zip(*values)  # Separazione dimensioni e tempi
+
+        # Traccia il grafico per ciascun tipo di Blk e Thr
+        plt.plot(dimensioni_sorted, tempi_sorted, marker='o', label=f"{tipo}")  # Usa 'Thr' e 'Blk' come label
+
+    # Aggiungi etichette e titolo
+    plt.xlabel('Dimensioni della Matrice')
+    plt.ylabel('Tempi di esecuzione (in secondi)')
+    plt.title('Tempi per Dimensione della Matrice, Numero di Thread e Blocksize')
+    plt.legend(title="Configurazione")
+
+    # Mostra la griglia e salva il grafico come PDF
     plt.grid(True)
-    plt.legend()
-    #plt.show()
-    plt.savefig("../output/transpose_time_vs_matrix_size_Omp.pdf", format='pdf')
-    plt.clf()
-  
-def efficency_speedup(filename,dim_matrix):
-    matrix_times = []
-    matrix_thread_used = []
-    speedup = []
-    efficency = []
-    tempo_seriale = 0
-    with open(filename, mode='r', encoding='utf-8') as file:
-        for riga in file:
-            dimension,time,n_thread = riga.strip().split(";")
-            if int(dimension) == dim_matrix:
-                matrix_times.append(float(time))
-                matrix_thread_used.append(int(n_thread))
-    counter = 0;
-    for i in matrix_thread_used:
-        if i == 1:
-            tempo_seriale = matrix_times[counter]
-        counter = counter + 1
-    dati = sorted(zip(matrix_thread_used, matrix_times))
-    thread_n, tempi = zip(*dati)
-    for nthread, tempo in zip(matrix_thread_used, matrix_times):
-        speed = tempo_seriale / tempo
-        speedup.append(speed)
-        efficency.append(speed/nthread*100)
-    plt.figure(figsize=(10, 6))
-    plt.subplot(3, 1, 1)
-    plt.plot(matrix_thread_used, matrix_times, marker='o', color='b', label='Tempo (s)', linestyle='-', linewidth=2)
-    plt.xlabel('Numero di Thread')
-    plt.ylabel('Tempo (s)')
-    plt.title('Tempo in funzione dei Thread')
-    plt.grid(True)
-    plt.legend()
-    plt.subplot(3, 1, 2)
-    plt.plot(matrix_thread_used, speedup, marker='o', color='g', label='Speedup', linestyle='-', linewidth=2)
-    plt.xlabel('Numero di Thread')
-    plt.ylabel('Speedup')
-    plt.title('Speedup in funzione dei Thread')
-    plt.grid(True)
-    plt.legend()
-    plt.subplot(3, 1, 3)
-    plt.plot(matrix_thread_used, efficency, marker='o', color='r', label='Efficienza', linestyle='-', linewidth=2)
-    plt.xlabel('Numero di Thread')
-    plt.ylabel('Efficienza')
-    plt.title('Efficienza in funzione dei Thread')
-    plt.grid(True)
-    plt.legend()
     plt.tight_layout()
     #plt.show()
-    file_name = f"../output/efficency_speedup_matrix_size_{dim_matrix}.pdf"
-    plt.savefig(file_name, format='pdf')
-    plt.clf()
+    plt.savefig("../pdf_graph/transpose_time_vs_matrix_size_Omp.pdf", format='pdf',dpi=300)
+    plt.clf()  # Pulisce la figura dopo averla salvata
 
-def speedup(filename, colors=None):
-    data = {}
+
+def speedup(filename):
+    # Crea le liste per raccogliere i dati
+    dim = []  # Lista per le dimensioni delle matrici
+    time = []  # Lista per i tempi di esecuzione
+    thr_blk = []  # Lista per le configurazioni "Thr=XX Blk=XX"
+
+    # Leggi i dati dal file
     with open(filename, mode='r', encoding='utf-8') as file:
         for line in file:
             values = line.strip().split(';')
-            dim = int(values[0])  # Dimensione della matrice
-            time = float(values[1])  # Tempo di esecuzione
-            threads = int(values[2])  # Numero di thread
-            if dim not in data:
-                data[dim] = []
-            data[dim].append((threads, time))
-    plt.figure(figsize=(10, 6))  # Dimensione del grafico
-    color_index = 0  # Indice per i colori
-    default_colors = ['#ff0000', '#ff6100', '#ffdc00', '#55ff00', '#00ecff', '#0027ff', '#ae00ff', '#ff00f0', '#C70039', '#FFB6C1']
-    for dim, values in data.items():
-        values.sort(key=lambda x: x[0]) # Ordino per numero di thread
-        threads, times = zip(*values)  # separare threads e tempi
-        serial_time = times[0]
-        speedup = [serial_time / time for time in times]
-        if colors:
-            color = colors[color_index % len(colors)]
-        else:
-            color = default_colors[color_index % len(default_colors)]
-        plt.plot(threads, speedup, marker='o', label=f'Matrice {dim}x{dim}', color=color)
-        color_index += 1
-    #plt.yscale('log')
-    plt.xlabel('Numero di Thread')
-    plt.ylabel('Speedup')
-    plt.title('Speedup in funzione del Numero di Thread per diverse Matrici')
+
+            # Controllo sul numero di colonne
+            if len(values) < 3:
+                continue  # Se la riga non ha almeno 3 colonne, salta
+
+            # Estrai i valori e aggiungili alle liste
+            dimm = int(values[0])  # Prima colonna: dimensione matrice
+            timee = float(values[1])  # Seconda colonna: tempo di esecuzione
+            thr_blk_value = values[2]  # Terza colonna: configurazione (e.g., Thr=96 Blk=512)
+
+            # Aggiungi i valori alle rispettive liste
+            dim.append(dimm)
+            time.append(timee)
+            thr_blk.append(thr_blk_value)
+
+    # Calcola la media dei tempi per ogni combinazione di (dim, blk)
+    result = media(dim, time, thr_blk)
+    
+    # Estrai le tre liste finali (dim, time e thr_blk)
+    dim, time, thr_blk = zip(*result)  # Unpack the results into three separate lists
+
+    # Ora calcoliamo lo speedup
+    serial_times = {}  # Per memorizzare il tempo seriale per ogni dimensione
+    for d, t, _ in zip(dim, time, thr_blk):
+        if d not in serial_times:
+            serial_times[d] = t  # Il primo tempo per ogni dim è considerato come seriale
+
+    # Calcolare lo speedup
+    speedup = [serial_times[d] / t for d, t in zip(dim, time)]
+
+    # Creiamo il grafico con una figura più grande
+    plt.figure(figsize=(20, 12))  # Aumenta ulteriormente la dimensione della figura per fare più spazio
+
+    # Dizionario per raggruppare i dati per (dim, blk)
+    grouped_data = defaultdict(list)
+
+    # Raggruppiamo i dati per (dim, blk) e memorizziamo i (thread, speedup)
+    for (d, blk), t, s in zip(zip(dim, thr_blk), time, speedup):
+        # Estrai il numero di thread dalla configurazione 'Thr=XX'
+        threads = int(blk.split('Thr=')[1].split()[0])  # Estrai numero di thread
+        # Estrarre la blocksize (Blk=XX) dalla configurazione
+        blocksize = int(blk.split('Blk=')[1])  # Estrai la blocksize
+        grouped_data[(d, blocksize)].append((threads, s))  # Raggruppa per dim e blocksize
+
+    # Traccia i dati per ogni combinazione di (dim, blk)
+    for (d, blk), values in grouped_data.items():
+        # Ordina i valori per numero di thread
+        values.sort(key=lambda x: x[0])
+        threads, speedups = zip(*values)  # Separare thread e speedup
+        # Legenda ora mostra solo 'dim' e 'blk'
+        plt.plot(threads, speedups, marker='o', label=f'Dim={d} Blk={blk}')  # La legenda mostrerà solo dim e blk
+
+    # Impostiamo le etichette
+    plt.xlabel("Numero di Thread", fontsize=14)
+    plt.ylabel("Speedup", fontsize=14)
+    plt.title("Speedup vs Numero di Thread per Configurazioni di Matrice e Blocksize", fontsize=16)
+
+    # Aggiungiamo la legenda e la griglia
+    plt.legend(title="Configurazioni (Dim, Blk)", loc='upper left', bbox_to_anchor=(1, 1))  # Posizione della legenda a sinistra
     plt.grid(True)
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig("../output/speedup_matrix_sizes.pdf", format='pdf')
+
+    # Regola la disposizione del grafico per aggiungere spazio alla legenda
+    plt.subplots_adjust(right=0.85)  # Aggiungi spazio sulla destra per la legenda
+
+    plt.savefig("../pdf_graph/speedup_plot.pdf", format='pdf', dpi=300)  # Usa bbox_inches='tight' per evitare il taglio
     #plt.show()
-    plt.clf()
+
     
 def efficiency(filename, colors=None):
-    data = {}
+    # Crea le liste per raccogliere i dati
+    dim = []  # Lista per le dimensioni delle matrici
+    time = []  # Lista per i tempi di esecuzione
+    thr_blk = []  # Lista per le configurazioni "Thr=XX Blk=XX"
+
+    # Leggi i dati dal file
     with open(filename, mode='r', encoding='utf-8') as file:
         for line in file:
             values = line.strip().split(';')
-            dim = int(values[0])  # Dimensione della matrice
-            time = float(values[1])  # Tempo di esecuzione
-            threads = int(values[2])  # Numero di thread
-            if dim not in data:
-                data[dim] = []
-            data[dim].append((threads, time))
-    plt.figure(figsize=(10, 6))  # Dimensione del grafico
-    color_index = 0  # Indice per i colori
-    default_colors = ['#ff0000', '#ff6100', '#ffdc00', '#55ff00', '#00ecff', '#0027ff', '#ae00ff', '#ff00f0', '#C70039', '#FFB6C1']
-    for dim, values in data.items():
-        values.sort(key=lambda x: x[0]) # Ordino per numero di thread
-        threads, times = zip(*values)  # separare threads e tempi
-        serial_time = times[0]
-        speedup = [serial_time / time for time in times]
-        efficiency = [(s / t) * 100 for s, t in zip(speedup, threads)]#cacolo efficency in percentuale
-        color = colors[color_index] if colors else default_colors[color_index]
-        color_index = (color_index + 1) % len(default_colors)
-        plt.plot(threads, efficiency, marker='o', linestyle='-', color=color, label=f'Matrice {dim}x{dim}')
-    #plt.xscale('log')
-    plt.xlabel('Numero di Thread')
-    plt.ylabel('Efficienza (%)')
-    plt.title('Efficienza in funzione del Numero di Thread per diverse Matrici')
+
+            # Controllo sul numero di colonne
+            if len(values) < 3:
+                continue  # Se la riga non ha almeno 3 colonne, salta
+
+            # Estrai i valori e aggiungili alle liste
+            dimm = int(values[0])  # Prima colonna: dimensione matrice
+            timee = float(values[1])  # Seconda colonna: tempo di esecuzione
+            thr_blk_value = values[2]  # Terza colonna: configurazione (e.g., Thr=96 Blk=512)
+
+            # Aggiungi i valori alle rispettive liste
+            dim.append(dimm)
+            time.append(timee)
+            thr_blk.append(thr_blk_value)
+
+    # Calcola la media dei tempi per ogni combinazione di (dim, blk)
+    result = media(dim, time, thr_blk)
+    
+    # Estrai le tre liste finali (dim, time e thr_blk)
+    dim, time, thr_blk = zip(*result)  # Unpack the results into three separate lists
+
+    # Ora calcoliamo lo speedup
+    serial_times = {}  # Per memorizzare il tempo seriale per ogni dimensione
+    for d, t, _ in zip(dim, time, thr_blk):
+        if d not in serial_times:
+            serial_times[d] = t  # Il primo tempo per ogni dim è considerato come seriale
+
+    # Calcolare lo speedup
+    speedup = [serial_times[d] / t for d, t in zip(dim, time)]
+
+    # Calcolare l'efficienza
+    efficiency = []
+    for s, blk in zip(speedup, thr_blk):
+        # Estrai il numero di thread dalla configurazione 'Thr=XX'
+        threads = int(blk.split('Thr=')[1].split()[0])  # Estrai numero di thread
+        if threads == 0:
+            eff = 0  # Se per qualche motivo c'è un errore nel numero di thread, mettiamo efficienza a 0
+        else:
+            eff = s / threads *100  # Efficienza = speedup / numero di thread
+        efficiency.append(eff)
+
+        # Aggiungi una stampa per il debug per vedere cosa succede
+        print(f"Speedup: {s}, Threads: {threads}, Efficienza: {eff}")
+
+    # Creiamo il grafico con una figura più grande
+    plt.figure(figsize=(20, 12))  # Aumenta ulteriormente la dimensione della figura per fare più spazio
+
+    # Dizionario per raggruppare i dati per (dim, blk)
+    grouped_data = defaultdict(list)
+
+    # Raggruppiamo i dati per (dim, blk) e memorizziamo i (thread, efficiency)
+    for (d, blk), t, e in zip(zip(dim, thr_blk), time, efficiency):
+        # Estrai il numero di thread dalla configurazione 'Thr=XX'
+        threads = int(blk.split('Thr=')[1].split()[0])  # Estrai numero di thread
+        # Estrarre la blocksize (Blk=XX) dalla configurazione
+        blocksize = int(blk.split('Blk=')[1])  # Estrai la blocksize
+        grouped_data[(d, blocksize)].append((threads, e))  # Raggruppa per dim e blocksize
+
+    # Traccia i dati per ogni combinazione di (dim, blk)
+    for (d, blk), values in grouped_data.items():
+        # Ordina i valori per numero di thread
+        values.sort(key=lambda x: x[0])
+        threads, efficiencies = zip(*values)  # Separare threads e efficiency
+        # Legenda ora mostra solo 'dim' e 'blk'
+        plt.plot(threads, efficiencies, marker='o', label=f'Dim={d} Blk={blk}')  # La legenda mostrerà solo dim e blk
+
+    # Impostiamo le etichette
+    plt.xlabel("Numero di Thread", fontsize=14)
+    plt.ylabel("Efficenza", fontsize=14)
+    plt.title("Efficenza vs Numero di Thread per Configurazioni di Matrice e Blocksize", fontsize=16)
+
+    # Aggiungiamo la legenda e la griglia
+    plt.legend(title="Configurazioni (Dim, Blk)", loc='upper left', bbox_to_anchor=(1, 1))  # Posizione della legenda a sinistra
     plt.grid(True)
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig("../output/efficiency_matrix_sizes.pdf", format='pdf')
-    # plt.show()
-    plt.clf()
+
+    # Regola la disposizione del grafico per aggiungere spazio alla legenda
+    plt.subplots_adjust(right=0.85)  # Aggiungi spazio sulla destra per la legenda
+
+    plt.savefig("../pdf_graph/efficiency_plot.pdf", format='pdf', dpi=300)  # Usa bbox_inches='tight' per evitare il taglio
+    #plt.show()
+    
+def media(dimensione, tempi, tipo):
+    dati_raggruppati = defaultdict(list)
+
+    # Raggruppiamo i tempi in base ai valori della dimensione e tipo
+    for dim, t, tpo in zip(dimensione, tempi, tipo):
+        dati_raggruppati[(dim, tpo)].append(t)
+
+    # Ora calcoliamo la media per ciascun gruppo e salviamo i risultati
+    risultati = []
+
+    for (dim, tpo), tempi_gruppo in dati_raggruppati.items():
+        media_tempi = np.mean(tempi_gruppo)  # Calcoliamo la media dei tempi per il gruppo
+        risultati.append((dim, media_tempi, tpo))
+
+    # Risultati finali
+    for r in risultati:
+        print(f"Dimensione: {r[0]}, Media tempi: {r[1]}, Tipo: {r[2]}")
+    return risultati
+    
 if __name__ == "__main__":
     main()

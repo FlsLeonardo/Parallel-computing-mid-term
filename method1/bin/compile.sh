@@ -17,8 +17,6 @@ if [ $# -eq 0 ]; then
   ./Main 11 "O1"
   ./Main 12 "O1"
   
-  rm ../output/Serial.csv
-  rm ../output/Omp.csv
   g++-9.1.0 -c main.cpp -fopenmp
   g++-9.1.0 -c serialTransposition.cpp
   g++-9.1.0 -c implicitTransposition.cpp -O2

@@ -32,22 +32,6 @@ if [ $# -eq 0 ]; then
   ./Main 11 "O2"
   ./Main 12 "O2"
   
-  rm ../output/Serial.csv
-  rm ../output/Omp.csv
-  g++-9.1.0 -c main.cpp -fopenmp
-  g++-9.1.0 -c serialTransposition.cpp
-  g++-9.1.0 -c implicitTransposition.cpp -O3
-  g++-9.1.0 -c ompTransposition.cpp -fopenmp
-  g++-9.1.0 main.o serialTransposition.o implicitTransposition.o ompTransposition.o -o Main -fopenmp
-  ./Main 4 "O3"
-  ./Main 5 "O3"
-  ./Main 6 "O3"
-  ./Main 7 "O3"
-  ./Main 8 "O3"
-  ./Main 9 "O3"
-  ./Main 10 "O3"
-  ./Main 11 "O3"
-  ./Main 12 "O3"
 fi
 
 # Se viene passato un solo parametro (O1, O2, etc.)

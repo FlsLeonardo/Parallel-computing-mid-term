@@ -1,0 +1,10 @@
+Matrix Dimension,Min Time,Computation Option
+4,1.56462e-07,O2 -funroll-loops
+5,5.82635e-07,O2=method3
+6,2.01166e-06,O2 -funroll-loops=method3
+7,7.14213e-06,O2 -funroll-loops=method3
+8,2.41876e-05,O2=method3
+9,0.00014006,O2 -funroll-loops=method3
+10,0.00070416,O2 -funroll-loops=method3
+11,0.00579946,O2 -funroll-loops=256
+12,0.046584,O2=32

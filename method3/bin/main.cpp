@@ -104,6 +104,8 @@ int main(int argc, char* argv[]) {
             wt2 = omp_get_wtime();
             if(!checkTransposition(M,n,T)){cout<<"transpose not correct"<<endl;}
             Stime += (wt2 - wt1);
+            writeToFile("../output/Serial.csv",num,(wt2 - wt1)); //--------------------------------------------write file Serial
+            writeToFile("../output/Implicit.csv",num,(wt2 - wt1),"serial=method3");
             
             T = M;
             //Implicit implementation-------------------------------------------
@@ -113,15 +115,18 @@ int main(int argc, char* argv[]) {
             wt2 = omp_get_wtime();
             if(!checkTransposition(M,n,T)){cout<<"transpose not correct"<<endl;}
             Itime += (wt2 - wt1);
+            writeToFile("../output/Implicit.csv",num,(wt2 - wt1),compileOpt+"=method3"); //-----------------------------------------write file implicit
     }        
     cout <<"----------------------------------"<<endl; 
-    cout << "Serial (avarege of 5) " << (Stime/TEST)<< " sec" << endl<<endl;
-    cout << "Implicit (avarege of 5) " << (Itime/TEST)<< " sec" << endl<<endl;  
-    writeToFile("../output/Serial.csv",num,(Stime/TEST));     //--------------------------------------------write file Serial
+    cout << "Serial Implemenation"<< endl;
+    cout <<" "<<num<< "\t" << (Stime/TEST)<< " sec\t" << endl<<endl;
+    cout << "Implicit Implemenation"<< endl;
+    cout <<" "<<num<< "\t" << (Itime/TEST)<< " sec\t" << endl<<endl;  
+        
     writeToFile("../output/Implicit.csv",num,(Itime/TEST),compileOpt+"=method3"); //-----------------------------------------write file implicit
     //printMatrix(T,n);
     
-                      
+    cout << "Omp Implemenation"<< endl;                  
     for (int& thread_count : n_threads) {
         checkSym = checkSymOmp;
         checkSym(M,n,thread_count);   
@@ -134,9 +139,10 @@ int main(int argc, char* argv[]) {
             wt2 = omp_get_wtime();
             if(!checkTransposition(M,n,T)){cout<<"transpose not correct"<<endl;}
             Otime += (wt2 - wt1);
+            writeToFile("../output/Omp.csv",num,(wt2 - wt1),to_string(thread_count)); //---------------------------write file OMP
         }
-        cout << "Omp (avarege of 5) " << (Otime/TEST)<< " sec " <<thread_count<<" threads"<< endl;
-        writeToFile("../output/Omp.csv",num,(Otime/TEST),to_string(thread_count)); //---------------------------write file OMP
+        cout <<" "<<num << "\t" << (Otime/TEST)<< " sec\t" <<thread_count<<" threads"<< endl;
+        
         Otime = 0;
     }    
     return 0;
