@@ -89,39 +89,53 @@ def serial(filename):
     plt.savefig("../pdf_graph/transpose_time_vs_matrix_size_Serial.pdf", format='pdf')
     plt.clf()
     
-def implicit(filename, filter_keyword=None):
+def implicit(filename, filter_keyword=None, colors=None):
+    # Lista colori predefinita se non specificata
+    if colors is None:
+        colors = ['#ff0000', '#ff6100', '#ffdc00', '#55ff00', '#00ecff', 
+                  '#0027ff', '#ae00ff', '#ff00f0', '#C70039', '#FFB6C1']
+
     # Leggi il file CSV
     data = pd.read_csv(filename, sep=';', header=None, names=['X', 'Y', 'Type'])
 
     # Estrai la parte prima dell'uguale e la parte dopo
     data[['Group', 'Value']] = data['Type'].str.extract(r'([A-Za-z0-9]+(?:\s*-?[A-Za-z0-9-]+)*)=(\d+)')
 
-    # Trova tutti i gruppi distinti (O2, O3, etc.)
+    # Filtra i dati se un filtro è specificato
+    if filter_keyword:
+        data = data[data['Group'].str.contains(filter_keyword)]
+
+    # Trova tutti i gruppi distinti (es. O2, O3, etc.)
     unique_groups = data['Group'].unique()
-    print(unique_groups)
 
     # Crea il grafico
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 8))
+
+    # Colore ciclico
+    color_index = 0
 
     # Itera attraverso ciascun gruppo (O2, O3, etc.)
     for group in unique_groups:
         # Filtra i dati per il gruppo corrente (es. O2)
         group_data = data[data['Group'] == group]
 
-        # Raggruppa per 'Value' (120, 155, etc.) e 'X' (dimensione della matrice)
+        # Raggruppa per 'Value' (es. 120, 155) e 'X' (dimensione della matrice)
         grouped_data = group_data.groupby(['Value', 'X'])['Y'].mean().reset_index()
 
         # Traccia ogni configurazione (es. O2=120, O2=155, etc.)
         for value, group_subset in grouped_data.groupby('Value'):
-            # Traccia i dati per ogni configurazione (O2=120, O2=155, etc.)
-            plt.plot(group_subset['X'], group_subset['Y'], marker='o', label=f"{group}={value}")
+            # Colore ciclico per ogni linea
+            color = colors[color_index % len(colors)]
+            plt.plot(group_subset['X'], group_subset['Y'], marker='o', 
+                     label=f"{group}={value}", color=color)
+            color_index += 1  # Incrementa l'indice del colore
 
     # Personalizza il grafico
     plt.yscale("log")  # Usa una scala logaritmica per visualizzare meglio i dati
-    plt.title("Tempi medi per dimensione della matrice, per ciascun gruppo (O2, O3, etc.)")
-    plt.xlabel("Dimensione della matrice (X)")
-    plt.ylabel("Tempi medi di esecuzione (Y)")
-    plt.legend(title="Configurazioni")
+    plt.title("Tempi medi per dimensione della matrice, per ciascun gruppo (O2, O3, etc.)", fontsize=16)
+    plt.xlabel("Dimensione della matrice (X)", fontsize=14)
+    plt.ylabel("Tempi medi di esecuzione (Y)", fontsize=14)
+    plt.legend(title="Configurazioni", loc='upper left', bbox_to_anchor=(1, 1))
     plt.grid(True)
 
     # Salva il grafico come PDF
@@ -129,10 +143,15 @@ def implicit(filename, filter_keyword=None):
     plt.savefig(f"../pdf_graph/transpose_time_vs_matrix_size_Implicit.pdf", format='pdf')
     plt.clf()  # Pulisce la figura dopo averla salvata
 
-def omp(filename):
+def omp(filename, colors=None):
     dimensioni = []
     tempi = []
     thread_n = []
+    
+    # Colori predefiniti se non forniti
+    if colors is None:
+        colors = ['#ff0000', '#ff6100', '#ffdc00', '#55ff00', '#00ecff', 
+                  '#0027ff', '#ae00ff', '#ff00f0', '#C70039', '#FFB6C1']
     
     # Leggi i dati dal file
     with open(filename, mode='r', encoding='utf-8') as file:
@@ -159,25 +178,29 @@ def omp(filename):
     # Crea il grafico
     plt.figure(figsize=(12, 8))
 
+    # Lista di colori
+    color_index = 0  # Indice per tracciare i colori
+
     # Traccia ogni gruppo (per ogni combinazione di numero di thread e dimensione del blocco)
     for tipo, values in grouped_data.items():
         values.sort()  # Ordina per dimensione (per avere una linea più ordinata)
         dimensioni_sorted, tempi_sorted = zip(*values)  # Separazione dimensioni e tempi
 
-        # Traccia il grafico per ciascun tipo di Blk e Thr
-        plt.plot(dimensioni_sorted, tempi_sorted, marker='o', label=f"{tipo}")  # Usa 'Thr' e 'Blk' come label
+        # Usa il colore dal lista, ciclando quando i colori sono terminati
+        color = colors[color_index % len(colors)]  # Seleziona colore ciclicamente
+        plt.plot(dimensioni_sorted, tempi_sorted, marker='o', label=f"{tipo}", color=color)  # Usa 'Thr' e 'Blk' come label
+        color_index += 1  # Incrementa l'indice del colore
 
     # Aggiungi etichette e titolo
-    plt.xlabel('Dimensioni della Matrice')
-    plt.ylabel('Tempi di esecuzione (in secondi)')
-    plt.title('Tempi per Dimensione della Matrice, Numero di Thread e Blocksize')
-    plt.legend(title="Configurazione")
+    plt.xlabel('Dimensioni della Matrice', fontsize=14)
+    plt.ylabel('Tempi di esecuzione (in secondi)', fontsize=14)
+    plt.title('Tempi per Dimensione della Matrice, Numero di Thread e Blocksize', fontsize=16)
+    plt.legend(title="Configurazione", loc='upper left', bbox_to_anchor=(1, 1))
 
     # Mostra la griglia e salva il grafico come PDF
     plt.grid(True)
     plt.tight_layout()
-    #plt.show()
-    plt.savefig("../pdf_graph/transpose_time_vs_matrix_size_Omp.pdf", format='pdf',dpi=300)
+    plt.savefig("../pdf_graph/transpose_time_vs_matrix_size_Omp.pdf", format='pdf', dpi=300)
     plt.clf()  # Pulisce la figura dopo averla salvata
 
 
@@ -235,13 +258,19 @@ def speedup(filename):
         blocksize = int(blk.split('Blk=')[1])  # Estrai la blocksize
         grouped_data[(d, blocksize)].append((threads, s))  # Raggruppa per dim e blocksize
 
+    # Lista di colori per le linee
+    colors = ['#ff0000', '#ff6100', '#ffdc00', '#55ff00', '#00ecff', '#0027ff', '#ae00ff', '#ff00f0', '#C70039', '#FFB6C1']
+    color_index = 0  # Indice per tracciare i colori
+
     # Traccia i dati per ogni combinazione di (dim, blk)
     for (d, blk), values in grouped_data.items():
         # Ordina i valori per numero di thread
         values.sort(key=lambda x: x[0])
         threads, speedups = zip(*values)  # Separare thread e speedup
-        # Legenda ora mostra solo 'dim' e 'blk'
-        plt.plot(threads, speedups, marker='o', label=f'Dim={d} Blk={blk}')  # La legenda mostrerà solo dim e blk
+        # Usa il colore dal lista, ciclando quando i colori sono terminati
+        color = colors[color_index % len(colors)]  # Seleziona colore ciclicamente
+        plt.plot(threads, speedups, marker='o', label=f'Dim={d} Blk={blk}', color=color)  # Applica il colore
+        color_index += 1  # Incrementa l'indice del colore
 
     # Impostiamo le etichette
     plt.xlabel("Numero di Thread", fontsize=14)
@@ -255,7 +284,7 @@ def speedup(filename):
     # Regola la disposizione del grafico per aggiungere spazio alla legenda
     plt.subplots_adjust(right=0.85)  # Aggiungi spazio sulla destra per la legenda
 
-    plt.savefig("../pdf_graph/speedup_plot.pdf", format='pdf', dpi=300)  # Usa bbox_inches='tight' per evitare il taglio
+    plt.savefig("../pdf_graph/speedup_plot.pdf", format='pdf')  # Usa bbox_inches='tight' per evitare il taglio
     #plt.show()
 
     
@@ -264,6 +293,11 @@ def efficiency(filename, colors=None):
     dim = []  # Lista per le dimensioni delle matrici
     time = []  # Lista per i tempi di esecuzione
     thr_blk = []  # Lista per le configurazioni "Thr=XX Blk=XX"
+
+    # Colori predefiniti se non forniti
+    if colors is None:
+        colors = ['#ff0000', '#ff6100', '#ffdc00', '#55ff00', '#00ecff', 
+                  '#0027ff', '#ae00ff', '#ff00f0', '#C70039', '#FFB6C1']
 
     # Leggi i dati dal file
     with open(filename, mode='r', encoding='utf-8') as file:
@@ -307,11 +341,8 @@ def efficiency(filename, colors=None):
         if threads == 0:
             eff = 0  # Se per qualche motivo c'è un errore nel numero di thread, mettiamo efficienza a 0
         else:
-            eff = s / threads *100  # Efficienza = speedup / numero di thread
+            eff = s / threads * 100  # Efficienza = speedup / numero di thread
         efficiency.append(eff)
-
-        # Aggiungi una stampa per il debug per vedere cosa succede
-        print(f"Speedup: {s}, Threads: {threads}, Efficienza: {eff}")
 
     # Creiamo il grafico con una figura più grande
     plt.figure(figsize=(20, 12))  # Aumenta ulteriormente la dimensione della figura per fare più spazio
@@ -327,18 +358,23 @@ def efficiency(filename, colors=None):
         blocksize = int(blk.split('Blk=')[1])  # Estrai la blocksize
         grouped_data[(d, blocksize)].append((threads, e))  # Raggruppa per dim e blocksize
 
+    # Lista di colori
+    color_index = 0  # Indice per tracciare i colori
+
     # Traccia i dati per ogni combinazione di (dim, blk)
     for (d, blk), values in grouped_data.items():
         # Ordina i valori per numero di thread
         values.sort(key=lambda x: x[0])
         threads, efficiencies = zip(*values)  # Separare threads e efficiency
-        # Legenda ora mostra solo 'dim' e 'blk'
-        plt.plot(threads, efficiencies, marker='o', label=f'Dim={d} Blk={blk}')  # La legenda mostrerà solo dim e blk
+        # Usa il colore dal lista, ciclando quando i colori sono terminati
+        color = colors[color_index % len(colors)]  # Seleziona colore ciclicamente
+        plt.plot(threads, efficiencies, marker='o', label=f'Dim={d} Blk={blk}', color=color)  # Applica il colore
+        color_index += 1  # Incrementa l'indice del colore
 
     # Impostiamo le etichette
     plt.xlabel("Numero di Thread", fontsize=14)
-    plt.ylabel("Efficenza", fontsize=14)
-    plt.title("Efficenza vs Numero di Thread per Configurazioni di Matrice e Blocksize", fontsize=16)
+    plt.ylabel("Efficienza (%)", fontsize=14)
+    plt.title("Efficienza vs Numero di Thread per Configurazioni di Matrice e Blocksize", fontsize=16)
 
     # Aggiungiamo la legenda e la griglia
     plt.legend(title="Configurazioni (Dim, Blk)", loc='upper left', bbox_to_anchor=(1, 1))  # Posizione della legenda a sinistra
@@ -347,7 +383,7 @@ def efficiency(filename, colors=None):
     # Regola la disposizione del grafico per aggiungere spazio alla legenda
     plt.subplots_adjust(right=0.85)  # Aggiungi spazio sulla destra per la legenda
 
-    plt.savefig("../pdf_graph/efficiency_plot.pdf", format='pdf', dpi=300)  # Usa bbox_inches='tight' per evitare il taglio
+    plt.savefig("../pdf_graph/efficiency_plot.pdf", format='pdf')  # Usa bbox_inches='tight' per evitare il taglio
     #plt.show()
     
 def media(dimensione, tempi, tipo):

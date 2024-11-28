@@ -59,8 +59,13 @@ def serial(filename):
         plt.savefig("../pdf_graph/transpose_time_vs_matrix_size_Serial.pdf", format='pdf')
         plt.clf()
     
-def implicit(filename):
-   # Dizionario per contenere i dati raggruppati per (x_value, option)
+def implicit(filename, colors=None):
+    # Lista colori predefinita se non specificata
+    if colors is None:
+        colors = ['#ff0000', '#ff6100', '#ffdc00', '#55ff00', '#00ecff', 
+                  '#0027ff', '#ae00ff', '#ff00f0', '#C70039', '#FFB6C1']
+
+    # Dizionario per contenere i dati raggruppati per (x_value, option)
     data = defaultdict(lambda: {'x': [], 'y': []})
     
     # Lettura del file
@@ -85,20 +90,25 @@ def implicit(filename):
         averaged_data[option]['y'].append(avg_y)
     
     # Creazione del grafico
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(12, 8))
+    color_index = 0  # Indice per i colori
+
     for option, values in averaged_data.items():
-        plt.plot(values['x'], values['y'], marker='o', label=option)
+        # Colore ciclico per le linee
+        color = colors[color_index % len(colors)]
+        plt.plot(values['x'], values['y'], marker='o', label=option, color=color)
+        color_index += 1  # Incrementa l'indice del colore
     
     # Personalizzazione del grafico
-    plt.xlabel('Input Size')
-    plt.ylabel('Execution Time (Average)')
-    plt.title('Performance by Compiler Options (Averaged)')
-    plt.legend()
+    plt.xlabel('Input Size', fontsize=14)
+    plt.ylabel('Execution Time (Average)', fontsize=14)
+    plt.title('Performance by Compiler Options (Averaged)', fontsize=16)
+    plt.legend(title="Options")
     plt.grid(True)
     plt.tight_layout()
     
     # Salvataggio del grafico
-    plt.savefig("../pdf_graph/transpose_time_vs_matrix_size_Implicit.pdf", format='pdf')
+    plt.savefig("../pdf_graph/transpose_time_vs_matrix_size_Implicit.pdf", format='pdf', dpi=300)
     plt.clf()
 
 
