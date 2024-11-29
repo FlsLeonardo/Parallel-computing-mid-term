@@ -358,3 +358,183 @@
 12;0.112085;O2
 12;0.243918;serial
 12;0.111588;O2
+4;8.028e-06;serial
+4;1.70618e-06;O1 -ftree-loop-im -march=native
+4;8.15839e-06;serial
+4;1.06916e-06;O1 -ftree-loop-im -march=native
+4;7.81938e-06;serial
+4;1.05426e-06;O1 -ftree-loop-im -march=native
+4;7.85291e-06;serial
+4;1.13621e-06;O1 -ftree-loop-im -march=native
+4;7.85664e-06;serial
+4;1.01328e-06;O1 -ftree-loop-im -march=native
+5;9.9726e-06;serial
+5;3.69549e-06;O1 -ftree-loop-im -march=native
+5;2.92957e-05;serial
+5;3.59863e-06;O1 -ftree-loop-im -march=native
+5;2.89045e-05;serial
+5;3.48315e-06;O1 -ftree-loop-im -march=native
+5;2.8763e-05;serial
+5;3.4757e-06;O1 -ftree-loop-im -march=native
+5;2.87443e-05;serial
+5;3.44217e-06;O1 -ftree-loop-im -march=native
+6;3.82774e-05;serial
+6;4.54858e-06;O1 -ftree-loop-im -march=native
+6;0.00011234;serial
+6;1.33328e-05;O1 -ftree-loop-im -march=native
+6;0.00011225;serial
+6;1.33179e-05;O1 -ftree-loop-im -march=native
+6;0.000111986;serial
+6;1.3303e-05;O1 -ftree-loop-im -march=native
+6;0.000112142;serial
+6;1.33812e-05;O1 -ftree-loop-im -march=native
+7;0.000149224;serial
+7;1.89692e-05;O1 -ftree-loop-im -march=native
+7;0.000440806;serial
+7;1.71512e-05;O1 -ftree-loop-im -march=native
+7;0.0001336;serial
+7;5.59762e-05;O1 -ftree-loop-im -march=native
+7;0.000440579;serial
+7;5.63227e-05;O1 -ftree-loop-im -march=native
+7;0.000441082;serial
+7;5.64083e-05;O1 -ftree-loop-im -march=native
+8;0.000576995;serial
+8;0.000225198;O1 -ftree-loop-im -march=native
+8;0.000538874;serial
+8;0.000201974;O1 -ftree-loop-im -march=native
+8;0.000607274;serial
+8;0.000220127;O1 -ftree-loop-im -march=native
+8;0.000534907;serial
+8;0.000221126;O1 -ftree-loop-im -march=native
+8;0.000512432;serial
+8;0.000221044;O1 -ftree-loop-im -march=native
+9;0.0024128;serial
+9;0.000548404;O1 -ftree-loop-im -march=native
+9;0.00260924;serial
+9;0.000701375;O1 -ftree-loop-im -march=native
+9;0.00280583;serial
+9;0.000599079;O1 -ftree-loop-im -march=native
+9;0.00252264;serial
+9;0.00115345;O1 -ftree-loop-im -march=native
+9;0.00433798;serial
+9;0.000901621;O1 -ftree-loop-im -march=native
+10;0.0096568;serial
+10;0.00189193;O1 -ftree-loop-im -march=native
+10;0.00964154;serial
+10;0.00229751;O1 -ftree-loop-im -march=native
+10;0.00964025;serial
+10;0.00195106;O1 -ftree-loop-im -march=native
+10;0.00969532;serial
+10;0.00222647;O1 -ftree-loop-im -march=native
+10;0.01334;serial
+10;0.00189177;O1 -ftree-loop-im -march=native
+11;0.0517507;serial
+11;0.0217385;O1 -ftree-loop-im -march=native
+11;0.0475829;serial
+11;0.0218239;O1 -ftree-loop-im -march=native
+11;0.0464159;serial
+11;0.021089;O1 -ftree-loop-im -march=native
+11;0.0462472;serial
+11;0.0240453;O1 -ftree-loop-im -march=native
+11;0.0461452;serial
+11;0.0213754;O1 -ftree-loop-im -march=native
+12;0.256419;serial
+12;0.12975;O1 -ftree-loop-im -march=native
+12;0.251059;serial
+12;0.0997165;O1 -ftree-loop-im -march=native
+12;0.248351;serial
+12;0.0993034;O1 -ftree-loop-im -march=native
+12;0.273575;serial
+12;0.0996294;O1 -ftree-loop-im -march=native
+12;0.247119;serial
+12;0.108343;O1 -ftree-loop-im -march=native
+4;7.9982e-06;serial
+4;8.56817e-07;O2 -ftree-loop-im -march=native
+4;8.06153e-06;serial
+4;6.81728e-07;O2 -ftree-loop-im -march=native
+4;6.49318e-06;serial
+4;6.66827e-07;O2 -ftree-loop-im -march=native
+4;7.89016e-06;serial
+4;7.1153e-07;O2 -ftree-loop-im -march=native
+4;8.06898e-06;serial
+4;7.00355e-07;O2 -ftree-loop-im -march=native
+5;9.86829e-06;serial
+5;2.96161e-06;O2 -ftree-loop-im -march=native
+5;2.93367e-05;serial
+5;2.87592e-06;O2 -ftree-loop-im -march=native
+5;2.87443e-05;serial
+5;2.8871e-06;O2 -ftree-loop-im -march=native
+5;9.65223e-06;serial
+5;2.84985e-06;O2 -ftree-loop-im -march=native
+5;2.88971e-05;serial
+5;2.80514e-06;O2 -ftree-loop-im -march=native
+6;4.73745e-05;serial
+6;5.20051e-06;O2 -ftree-loop-im -march=native
+6;0.000112612;serial
+6;1.1269e-05;O2 -ftree-loop-im -march=native
+6;0.000112463;serial
+6;1.11572e-05;O2 -ftree-loop-im -march=native
+6;0.000112515;serial
+6;1.1798e-05;O2 -ftree-loop-im -march=native
+6;7.50236e-05;serial
+6;7.3798e-06;O2 -ftree-loop-im -march=native
+7;0.000149138;serial
+7;3.45074e-05;O2 -ftree-loop-im -march=native
+7;0.000297692;serial
+7;3.31737e-05;O2 -ftree-loop-im -march=native
+7;0.000457421;serial
+7;3.37139e-05;O2 -ftree-loop-im -march=native
+7;0.000264131;serial
+7;3.39113e-05;O2 -ftree-loop-im -march=native
+7;0.000129875;serial
+7;4.19989e-05;O2 -ftree-loop-im -march=native
+8;0.000578713;serial
+8;0.000162743;O2 -ftree-loop-im -march=native
+8;0.000980627;serial
+8;0.000146735;O2 -ftree-loop-im -march=native
+8;0.0011623;serial
+8;9.26293e-05;O2 -ftree-loop-im -march=native
+8;0.000754967;serial
+8;0.000144966;O2 -ftree-loop-im -march=native
+8;0.00124875;serial
+8;0.0001426;O2 -ftree-loop-im -march=native
+9;0.00234524;serial
+9;0.000638381;O2 -ftree-loop-im -march=native
+9;0.0025546;serial
+9;0.000421572;O2 -ftree-loop-im -march=native
+9;0.00247407;serial
+9;0.000422228;O2 -ftree-loop-im -march=native
+9;0.00275714;serial
+9;0.000496387;O2 -ftree-loop-im -march=native
+9;0.00232973;serial
+9;0.000943597;O2 -ftree-loop-im -march=native
+10;0.00963223;serial
+10;0.0019802;O2 -ftree-loop-im -march=native
+10;0.00965437;serial
+10;0.0020692;O2 -ftree-loop-im -march=native
+10;0.00963942;serial
+10;0.00194816;O2 -ftree-loop-im -march=native
+10;0.0104442;serial
+10;0.00220837;O2 -ftree-loop-im -march=native
+10;0.010342;serial
+10;0.00188231;O2 -ftree-loop-im -march=native
+11;0.0510043;serial
+11;0.0265777;O2 -ftree-loop-im -march=native
+11;0.0478119;serial
+11;0.0256279;O2 -ftree-loop-im -march=native
+11;0.0463278;serial
+11;0.0257151;O2 -ftree-loop-im -march=native
+11;0.0466882;serial
+11;0.0253708;O2 -ftree-loop-im -march=native
+11;0.0489685;serial
+11;0.0259549;O2 -ftree-loop-im -march=native
+12;0.256616;serial
+12;0.139377;O2 -ftree-loop-im -march=native
+12;0.251506;serial
+12;0.113192;O2 -ftree-loop-im -march=native
+12;0.24958;serial
+12;0.115763;O2 -ftree-loop-im -march=native
+12;0.268213;serial
+12;0.116313;O2 -ftree-loop-im -march=native
+12;0.247581;serial
+12;0.112566;O2 -ftree-loop-im -march=native

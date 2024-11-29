@@ -3,7 +3,7 @@ Matrix Dimension;Min Time;Computation Option
 5;1.4685101666666666e-06;O2 -funroll-loops=method3
 6;5.339461666666667e-06;O2 -funroll-loops=method3
 7;1.789518e-05;O2 -funroll-loops=256
-8;6.0612716666666667e-05;O2 -funroll-loops=method3
+8;5.192906666666667e-05;O1 -ftree-loop-im -march-native=method3
 9;0.000236649;O2=method3
 10;0.0007360785;O2 -funroll-loops=method3
 11;0.006202012;O2 -funroll-loops=256

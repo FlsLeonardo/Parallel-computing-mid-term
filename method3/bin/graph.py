@@ -96,7 +96,7 @@ def implicit(filename, colors=None):
     for option, values in averaged_data.items():
         # Colore ciclico per le linee
         color = colors[color_index % len(colors)]
-        plt.plot(values['x'], values['y'], marker='o', label=option, color=color)
+        plt.plot(values['x'], values['y'], marker='o',linestyle='--', label=option, color=color)
         color_index += 1  # Incrementa l'indice del colore
     
     # Personalizzazione del grafico
@@ -274,7 +274,7 @@ def speedup(filename, colors=None):
         color_index = (color_index + 1) % len(default_colors)
         
         # Plotta i dati
-        plt.plot(sorted_threads, speedup, marker='o', linestyle='-', color=color, label=f'Matrice {dim}x{dim}')
+        plt.plot(sorted_threads, speedup, marker='o', linestyle='--', color=color, label=f'Matrice {dim}x{dim}')
     
     # Personalizzazione del grafico
     plt.xlabel('Numero di Thread')
@@ -339,7 +339,7 @@ def efficiency(filename, colors=None):
         color_index = (color_index + 1) % len(default_colors)
         
         # Plotta i dati
-        plt.plot(sorted_threads, efficiency, marker='o', linestyle='-', color=color, label=f'Matrice {dim}x{dim}')
+        plt.plot(sorted_threads, efficiency, marker='o', linestyle='--', color=color, label=f'Matrice {dim}x{dim}')
     
     # Personalizzazione del grafico
     plt.xlabel('Numero di Thread')

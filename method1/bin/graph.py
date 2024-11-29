@@ -90,17 +90,17 @@ def implicit(filename, colors=None):
         averaged_data[option]['y'].append(avg_y)
     
     # Creazione del grafico
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(10, 6))
     color_index = 0  # Indice per i colori
 
     for option, values in averaged_data.items():
         # Colore ciclico per le linee
         color = colors[color_index % len(colors)]
-        plt.plot(values['x'], values['y'], marker='o', label=option, color=color)
+        plt.plot(values['x'], values['y'], marker='o',linestyle='--', label=option, color=color)
         color_index += 1  # Incrementa l'indice del colore
     
     # Personalizzazione del grafico
-    plt.xlabel('Input Size', fontsize=14)
+    plt.xlabel('Matrix Size', fontsize=14)
     plt.ylabel('Execution Time (Average)', fontsize=14)
     plt.title('Performance by Compiler Options (Averaged)', fontsize=16)
     plt.legend(title="Options")
@@ -108,7 +108,7 @@ def implicit(filename, colors=None):
     plt.tight_layout()
     
     # Salvataggio del grafico
-    plt.savefig("../pdf_graph/transpose_time_vs_matrix_size_Implicit.pdf", format='pdf', dpi=300)
+    plt.savefig("../pdf_graph/transpose_time_vs_matrix_size_Implicit.pdf", format='pdf')
     plt.clf()
 
 
@@ -275,7 +275,7 @@ def speedup(filename, colors=None):
         color_index = (color_index + 1) % len(default_colors)
         
         # Plotta i dati
-        plt.plot(sorted_threads, speedup, marker='o', linestyle='-', color=color, label=f'Matrice {dim}x{dim}')
+        plt.plot(sorted_threads, speedup, marker='o', linestyle='--', color=color, label=f'Matrice {dim}x{dim}')
     
     # Personalizzazione del grafico
     plt.xlabel('Numero di Thread')
@@ -340,7 +340,7 @@ def efficiency(filename, colors=None):
         color_index = (color_index + 1) % len(default_colors)
         
         # Plotta i dati
-        plt.plot(sorted_threads, efficiency, marker='o', linestyle='-', color=color, label=f'Matrice {dim}x{dim}')
+        plt.plot(sorted_threads, efficiency, marker='o', linestyle='--', color=color, label=f'Matrice {dim}x{dim}')
     
     # Personalizzazione del grafico
     plt.xlabel('Numero di Thread')

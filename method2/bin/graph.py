@@ -126,8 +126,7 @@ def implicit(filename, filter_keyword=None, colors=None):
         for value, group_subset in grouped_data.groupby('Value'):
             # Colore ciclico per ogni linea
             color = colors[color_index % len(colors)]
-            plt.plot(group_subset['X'], group_subset['Y'], marker='o', 
-                     label=f"{group}={value}", color=color)
+            plt.plot(group_subset['X'], group_subset['Y'], marker='o', linestyle='--',label=f"{group}={value}", color=color)
             color_index += 1  # Incrementa l'indice del colore
 
     # Personalizza il grafico
@@ -188,7 +187,7 @@ def omp(filename, colors=None):
 
         # Usa il colore dal lista, ciclando quando i colori sono terminati
         color = colors[color_index % len(colors)]  # Seleziona colore ciclicamente
-        plt.plot(dimensioni_sorted, tempi_sorted, marker='o', label=f"{tipo}", color=color)  # Usa 'Thr' e 'Blk' come label
+        plt.plot(dimensioni_sorted, tempi_sorted, marker='o',linestyle='--', label=f"{tipo}", color=color)  # Usa 'Thr' e 'Blk' come label
         color_index += 1  # Incrementa l'indice del colore
 
     # Aggiungi etichette e titolo
@@ -196,7 +195,7 @@ def omp(filename, colors=None):
     plt.ylabel('Tempi di esecuzione (in secondi)', fontsize=14)
     plt.title('Tempi per Dimensione della Matrice, Numero di Thread e Blocksize', fontsize=16)
     plt.legend(title="Configurazione", loc='upper left', bbox_to_anchor=(1, 1))
-
+    plt.yscale("log")
     # Mostra la griglia e salva il grafico come PDF
     plt.grid(True)
     plt.tight_layout()
@@ -269,7 +268,7 @@ def speedup(filename):
         threads, speedups = zip(*values)  # Separare thread e speedup
         # Usa il colore dal lista, ciclando quando i colori sono terminati
         color = colors[color_index % len(colors)]  # Seleziona colore ciclicamente
-        plt.plot(threads, speedups, marker='o', label=f'Dim={d} Blk={blk}', color=color)  # Applica il colore
+        plt.plot(threads, speedups, marker='o',linestyle='--', label=f'Dim={d} Blk={blk}', color=color)  # Applica il colore
         color_index += 1  # Incrementa l'indice del colore
 
     # Impostiamo le etichette
@@ -368,7 +367,7 @@ def efficiency(filename, colors=None):
         threads, efficiencies = zip(*values)  # Separare threads e efficiency
         # Usa il colore dal lista, ciclando quando i colori sono terminati
         color = colors[color_index % len(colors)]  # Seleziona colore ciclicamente
-        plt.plot(threads, efficiencies, marker='o', label=f'Dim={d} Blk={blk}', color=color)  # Applica il colore
+        plt.plot(threads, efficiencies, marker='o',linestyle='--', label=f'Dim={d} Blk={blk}', color=color)  # Applica il colore
         color_index += 1  # Incrementa l'indice del colore
 
     # Impostiamo le etichette
