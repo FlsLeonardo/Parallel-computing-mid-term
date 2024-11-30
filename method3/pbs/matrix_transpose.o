@@ -1,0 +1,171 @@
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                96
+On-line CPU(s) list:   0-95
+Thread(s) per core:    1
+Core(s) per socket:    24
+Socket(s):             4
+NUMA node(s):          4
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 85
+Model name:            Intel(R) Xeon(R) Gold 6252N CPU @ 2.30GHz
+Stepping:              7
+CPU MHz:               2300.000
+BogoMIPS:              4600.00
+Virtualization:        VT-x
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              1024K
+L3 cache:              36608K
+NUMA node0 CPU(s):     0,4,8,12,16,20,24,28,32,36,40,44,48,52,56,60,64,68,72,76,80,84,88,92
+NUMA node1 CPU(s):     1,5,9,13,17,21,25,29,33,37,41,45,49,53,57,61,65,69,73,77,81,85,89,93
+NUMA node2 CPU(s):     2,6,10,14,18,22,26,30,34,38,42,46,50,54,58,62,66,70,74,78,82,86,90,94
+NUMA node3 CPU(s):     3,7,11,15,19,23,27,31,35,39,43,47,51,55,59,63,67,71,75,79,83,87,91,95
+Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba rsb_ctxsw ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear spec_ctrl intel_stibp flush_l1d arch_capabilities
+
+----------------------------------
+Serial Implemenation
+ 4	7.72998e-06 sec	
+
+Implicit Implemenation
+ 4	1.71587e-06 sec	
+
+Omp Implemenation
+ 4	1.03995e-05 sec	1 threads
+ 4	1.4358e-05 sec	2 threads
+ 4	2.32138e-05 sec	4 threads
+ 4	2.44461e-05 sec	8 threads
+ 4	2.95319e-05 sec	16 threads
+ 4	3.28586e-05 sec	32 threads
+ 4	4.00789e-05 sec	64 threads
+ 4	0.0019756 sec	96 threads
+----------------------------------
+Serial Implemenation
+ 5	2.06694e-05 sec	
+
+Implicit Implemenation
+ 5	3.60534e-06 sec	
+
+Omp Implemenation
+ 5	3.30113e-05 sec	1 threads
+ 5	3.45722e-05 sec	2 threads
+ 5	4.02004e-05 sec	4 threads
+ 5	3.84241e-05 sec	8 threads
+ 5	3.76917e-05 sec	16 threads
+ 5	4.55342e-05 sec	32 threads
+ 5	5.0474e-05 sec	64 threads
+ 5	0.00817643 sec	96 threads
+----------------------------------
+Serial Implemenation
+ 6	9.86852e-05 sec	
+
+Implicit Implemenation
+ 6	1.19448e-05 sec	
+
+Omp Implemenation
+ 6	9.84117e-05 sec	1 threads
+ 6	0.000106204 sec	2 threads
+ 6	0.000103164 sec	4 threads
+ 6	7.64139e-05 sec	8 threads
+ 6	5.91509e-05 sec	16 threads
+ 6	5.21258e-05 sec	32 threads
+ 6	6.1553e-05 sec	64 threads
+ 6	0.0037427 sec	96 threads
+----------------------------------
+Serial Implemenation
+ 7	0.000336976 sec	
+
+Implicit Implemenation
+ 7	4.2183e-05 sec	
+
+Omp Implemenation
+ 7	0.000449611 sec	1 threads
+ 7	0.000358508 sec	2 threads
+ 7	0.000237002 sec	4 threads
+ 7	0.000210865 sec	8 threads
+ 7	0.000139986 sec	16 threads
+ 7	8.92013e-05 sec	32 threads
+ 7	7.15338e-05 sec	64 threads
+ 7	0.00898534 sec	96 threads
+----------------------------------
+Serial Implemenation
+ 8	0.000757461 sec	
+
+Implicit Implemenation
+ 8	0.00016934 sec	
+
+Omp Implemenation
+ 8	0.000981424 sec	1 threads
+ 8	0.000626334 sec	2 threads
+ 8	0.00059595 sec	4 threads
+ 8	0.000258443 sec	8 threads
+ 8	0.00017113 sec	16 threads
+ 8	0.000210115 sec	32 threads
+ 8	0.000139219 sec	64 threads
+ 8	0.00854893 sec	96 threads
+----------------------------------
+Serial Implemenation
+ 9	0.00218367 sec	
+
+Implicit Implemenation
+ 9	0.000537795 sec	
+
+Omp Implemenation
+ 9	0.00230219 sec	1 threads
+ 9	0.00181402 sec	2 threads
+ 9	0.00135408 sec	4 threads
+ 9	0.000728228 sec	8 threads
+ 9	0.000729484 sec	16 threads
+ 9	0.0006864 sec	32 threads
+ 9	0.000524674 sec	64 threads
+ 9	0.00238317 sec	96 threads
+----------------------------------
+Serial Implemenation
+ 10	0.00899454 sec	
+
+Implicit Implemenation
+ 10	0.0010853 sec	
+
+Omp Implemenation
+ 10	0.0087831 sec	1 threads
+ 10	0.00768759 sec	2 threads
+ 10	0.00642846 sec	4 threads
+ 10	0.00620958 sec	8 threads
+ 10	0.00347358 sec	16 threads
+ 10	0.00171442 sec	32 threads
+ 10	0.00138016 sec	64 threads
+ 10	0.00466998 sec	96 threads
+----------------------------------
+Serial Implemenation
+ 11	0.0385273 sec	
+
+Implicit Implemenation
+ 11	0.00764425 sec	
+
+Omp Implemenation
+ 11	0.0373755 sec	1 threads
+ 11	0.0288654 sec	2 threads
+ 11	0.0239742 sec	4 threads
+ 11	0.0226325 sec	8 threads
+ 11	0.0153428 sec	16 threads
+ 11	0.00907508 sec	32 threads
+ 11	0.00500716 sec	64 threads
+ 11	0.00429002 sec	96 threads
+----------------------------------
+Serial Implemenation
+ 12	0.184524 sec	
+
+Implicit Implemenation
+ 12	0.0503001 sec	
+
+Omp Implemenation
+ 12	0.18377 sec	1 threads
+ 12	0.142727 sec	2 threads
+ 12	0.0887072 sec	4 threads
+ 12	0.0573873 sec	8 threads
+ 12	0.0359796 sec	16 threads
+ 12	0.0235 sec	32 threads
+ 12	0.0167301 sec	64 threads
+ 12	0.0146997 sec	96 threads

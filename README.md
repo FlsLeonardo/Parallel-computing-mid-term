@@ -1,4 +1,3 @@
-# Parallel-computing-mid-term
 ![Version](https://img.shields.io/badge/CrntVersion-02.08-dc00ff)
 ![Author](https://img.shields.io/badge/Author-Falsarolo_Leonardo-6800ff)
 ![Languages](https://img.shields.io/badge/Languages-C++-0070ff)
@@ -12,7 +11,7 @@
 
 
 ## Description
-- The goal of this project is to explore and implement parallel computing techniques to optimize the performance of computationally intensive tasks.
+- The goal of this research is to optimize matrix transposition by analyzing the effectiveness of different techniques, with the aim of identifying the most efficient approach based on the matrix size and hardware context. The first technique considered is the serial implementation, which serves as the baseline method without any form of parallelization and is used as a reference for comparison. Next, implicit parallelization was analyzed, leveraging compiler-provided optimizations to distribute work across threads automatically. Finally, explicit parallelization was tested, utilizing tools such as OpenMP and specific directives to manually control the workload distribution among threads. Through the comparative analysis of these techniques, the research seeks to determine the most effective method for enhancing matrix transposition performance across various hardware configurations.
 ---
 ## Requirements
 
@@ -32,7 +31,9 @@
     * sys
     * matplotlib
     * numpy 
+    * csv
     * pandas 
+    * from collections import defaultdict
 ---
 ## How To Use
 
@@ -45,13 +46,51 @@ $ git clone https://github.com/FlsLeonardo/Parallel-computing-mid-term/tree/main
 # Go into the repository
 $ cd Parallel-computing-mid-term
 ```
+# Using Qsub 
+The program will do all the possible matrix transpositions and methods with all different pre setted compilation flags. 
+Starting from inside the Parallel-computing-mid-term folder:
+```cmd
+> qsub -I -q short_cpuQ -l select=1:ncpus=96:ompthreads=96:mem=1mb
+> cd method1
+> qsub matTranspose.pbs 
+---------- wait end execution ----------
+> cd bin
+> pyton graph.py                    #(for graphs only otherwise do not execute)
+---------- wait end execution ----------
+
+> cd ../..
+> cd method2
+> qsub matTranspose2.pbs 
+---------- wait end execution ----------
+> cd bin
+> pyton graph.py                    #(for graphs only otherwise do not execute)
+---------- wait end execution ----------
+
+> cd ../..
+> cd method3
+> qsub matTranspose3.pbs 
+---------- wait end execution ----------
+> cd bin
+> pyton graph.py                    #(for graphs only otherwise do not execute)
+---------- wait end execution ----------
+
+cd ../../best
+> pyton best_Implicit_for_matrix_dimension.py
+---------- wait end execution ----------
+```
+
+The output of the program you can find it in the pbs folder inside the method you chose for example ```method1/pbs```
+
+# Using interactive session
+
 ## Example of execution (Cli , FULL)
 The full execution will do all the possible matrix transpositions and methods with all different pre setted compilation flags. 
 
 Once downloaded the folder and opend it in your CMD.
-```cmd
+```python
+> qsub -I -q short_cpuQ -l select=1:ncpus=96:ompthreads=96:mem=1mb
 > cd method1/bin
-> ./compile.sh
+> ./compile.sh   #(if you do not have permission use the chmod command)
 ---------- wait end execution ----------
 > pyton graph.py
 ---------- wait end execution ----------
@@ -70,7 +109,7 @@ Once downloaded the folder and opend it in your CMD.
 > pyton graph.py
 ---------- wait end execution ----------
 
-cd ../..
+cd ../../best
 > pyton best_Implicit_for_matrix_dimension.py
 ---------- wait end execution ----------
 ```
@@ -151,6 +190,12 @@ Parallel-computing-mid-term/"Method_chosen"/bin>  ./Compile.sh "O2 -funroll-loop
       - Serial.csv
       - Implicit.csv
       - Omp.csv
+    - **pbs**
+      - matrix_transpose.o
+      - matrix_transpose.e
+    - **pbs_graph**
+      - contains all the graphs
+    - matTranspose.pbs
   - **method2**
     - **bin**
       - main.cpp
@@ -163,6 +208,12 @@ Parallel-computing-mid-term/"Method_chosen"/bin>  ./Compile.sh "O2 -funroll-loop
       - Serial.csv
       - Implicit.csv
       - Omp.csv
+    - **pbs**
+      - matrix_transpose.o
+      - matrix_transpose.e
+    - **pbs_graph**
+      - contains all the graphs
+    - matTranspose2.pbs
   - **method3**
     - **bin**
       - main.cpp
@@ -175,8 +226,15 @@ Parallel-computing-mid-term/"Method_chosen"/bin>  ./Compile.sh "O2 -funroll-loop
       - Serial.csv
       - Implicit.csv
       - Omp.csv
-  - best_Implicit_for_matrix_dimension.py
-  - best.csv
+    - **pbs**
+      - matrix_transpose.o
+      - matrix_transpose.e
+    - **pbs_graph**
+      - contains all the graphs
+    - matTranspose3.pbs
+  - **best**  
+    - best_Implicit_for_matrix_dimension.py
+    - best.csv
 
 For every method there is a brief explanation of the files:
 
